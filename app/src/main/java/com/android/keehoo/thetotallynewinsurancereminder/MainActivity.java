@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,10 +28,20 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("OnCreate-Activity Main", "            OnCreate w Main Activity");
+
+        boolean back = getIntent().getBooleanExtra("onbackpressed", false);
+        Log.d("Back Button Pressed?", "          back button pressed? " + back);
+        if (back) {
+            finish();
+            Log.d("System", "Exit(0)");
+            System.exit(0);
+        }
 
 
         sd = (Button) findViewById(R.id.set_date_is);
@@ -39,11 +50,13 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
 
         if (sharedPreferences.contains(SHARED_DATE)) {   //Data juz ustawiona i zapisana w sharedPrefs.
+            Log.d("SharedPreferences", "Shared Preferences contain SHARED_DAT tag");
             Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
             intent.putExtra("data", ustwionaDataWMilisekundach);
             startActivity(intent);
 
         } else {
+            Log.d("SharedPreferences", "Shared Preferences does not contain SHARED_DAT tag");
             Toast.makeText(MainActivity.this, "Wybierz date ubezpieczenia", Toast.LENGTH_LONG).show();
             sd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -54,8 +67,10 @@ public class MainActivity extends AppCompatActivity {
                     String ustawionaDataJakoData = formatter.format(new Date(ustwionaDataWMilisekundach));
                     textView.setText(ustawionaDataJakoData);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putLong(SHARED_DATE, ustwionaDataWMilisekundach);
-                    editor.commit();
+                    editor.putLong(SHARED_DATE, ustwionaDataWMilisekundach).apply();
+                    Log.d("SharedPreferences", "Zmienna ustawionaDataWMilisekundach o wartosci "
+                            + ustwionaDataWMilisekundach + " zostala zapisana w SharedPreferences pod tagiem SHARED_DATE");
+
                 }
 
             });

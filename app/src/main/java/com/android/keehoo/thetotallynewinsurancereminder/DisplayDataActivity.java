@@ -7,10 +7,14 @@ import android.util.Log;
 
 public class DisplayDataActivity extends AppCompatActivity {
 
+
+    public static final String BACK_BUTTON = "onbackpressed";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_data);
+
     }
 
     @Override
@@ -23,9 +27,5 @@ public class DisplayDataActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-    }
 }
