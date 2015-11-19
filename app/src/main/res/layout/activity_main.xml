@@ -13,6 +13,13 @@
         android:id="@+id/dp"
         />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/status_id"
+        android:hint="status"
+        android:layout_above="@+id/set_date_is" />
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -20,9 +27,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/set_date_is"/>
-
-
-
 
 
 </RelativeLayout>
