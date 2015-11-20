@@ -11,5 +11,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:text="dsdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd"
+        android:id="@+id/display_status_id"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="dsdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd"
+        android:id="@+id/display_status_id2"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/display_status_id" />
+
+
 </RelativeLayout>

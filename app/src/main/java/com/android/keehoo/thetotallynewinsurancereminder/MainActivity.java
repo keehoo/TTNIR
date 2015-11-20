@@ -35,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("OnCreate-Activity Main", "            OnCreate w Main Activity");
 
-        boolean back = getIntent().getBooleanExtra("onbackpressed", false);
+        /*boolean back = getIntent().getBooleanExtra("onbackpressed", false);
         Log.d("Back Button Pressed?", "          back button pressed? " + back);
         if (back) {
             finish();
             Log.d("System", "Exit(0)");
             System.exit(0);
-        }
+        }*/
 
 
         sd = (Button) findViewById(R.id.set_date_is);
@@ -50,13 +50,14 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
 
         if (sharedPreferences.contains(SHARED_DATE)) {   //Data juz ustawiona i zapisana w sharedPrefs.
-            Log.d("SharedPreferences", "Shared Preferences contain SHARED_DAT tag");
+            Log.d("SharedPreferences", "         Shared Preferences contain SHARED_DAT tag");
             Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
             intent.putExtra("data", ustwionaDataWMilisekundach);
             startActivity(intent);
+            finish();
 
         } else {
-            Log.d("SharedPreferences", "Shared Preferences does not contain SHARED_DAT tag");
+            Log.d("SharedPreferences", "      Shared Preferences does not contain SHARED_DAT tag");
             Toast.makeText(MainActivity.this, "Wybierz date ubezpieczenia", Toast.LENGTH_LONG).show();
             sd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     String ustawionaDataJakoData = formatter.format(new Date(ustwionaDataWMilisekundach));
                     textView.setText(ustawionaDataJakoData);
+                    sharedPreferences = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putLong(SHARED_DATE, ustwionaDataWMilisekundach).apply();
                     Log.d("SharedPreferences", "Zmienna ustawionaDataWMilisekundach o wartosci "
