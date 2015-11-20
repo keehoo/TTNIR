@@ -30,28 +30,20 @@ public class DisplayDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_data);
         JodaTimeAndroid.init(this);
 
-
         sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
         dataUbezpieczenieWMilisekundach = (sharedPreferences.getLong(SHARED_DATE, -1));
         textView = (TextView) findViewById(R.id.display_status_id);
         textView2 = (TextView) findViewById(R.id.display_status_id2);
         textView.setText("Data ustawiona w milisekundach:   " + dataUbezpieczenieWMilisekundach);
 
-        Date data = new Date(dataUbezpieczenieWMilisekundach);
-        DateTime dt = new DateTime(data);
+        // Date data = new Date(dataUbezpieczenieWMilisekundach);
+        DateTime dt = new DateTime(dataUbezpieczenieWMilisekundach);
         //LocalDate lc = new LocalDate(dt);
 
         textView2.setText("Data w milisekuncach przerobiona za pomoca Joda Time na date : " + dt.toString());
 
 
-
-
-
-
-
     }
-
-
 
 
 }
