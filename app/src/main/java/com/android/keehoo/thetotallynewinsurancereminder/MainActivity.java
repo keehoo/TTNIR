@@ -28,29 +28,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("OnCreate-Activity Main", "            OnCreate w Main Activity");
 
-        /*boolean back = getIntent().getBooleanExtra("onbackpressed", false);
-        Log.d("Back Button Pressed?", "          back button pressed? " + back);
-        if (back) {
-            finish();
-            Log.d("System", "Exit(0)");
-            System.exit(0);
-        }*/
-
-
         sd = (Button) findViewById(R.id.set_date_is);
         textView = (TextView) findViewById(R.id.status_id);
-
         sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
 
-        if (sharedPreferences.contains(SHARED_DATE)) {   //Data juz ustawiona i zapisana w sharedPrefs.
-            Log.d("SharedPreferences", "         Shared Preferences contain SHARED_DAT tag");
+        if (sharedPreferences.contains(SHARED_DATE)) {
+            //Data juz ustawiona i zapisana w sharedPrefs. Otwieramy nowe okno z wywietlaczem
+            Log.d("SharedPreferences", "         Shared Preferences contains SHARED_DATA tag");
             Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
             intent.putExtra("data", ustwionaDataWMilisekundach);
             startActivity(intent);
@@ -77,19 +67,18 @@ public class MainActivity extends AppCompatActivity {
 
             });
         }
-
     }
 
-
-    public long getDateFromDatePicket(DatePicker datePicker) {   // chce zeby ta metoda zwracala date z datepickera w milisekundach
+    /**
+     * getDateFromDatePicket - zwraca wybrana date z Date Picker'a - returns Calendar in miliseconds
+     */
+    public long getDateFromDatePicket(DatePicker datePicker) {
+        // chce zeby ta metoda zwracala date z datepickera w milisekundach
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
         int year = datePicker.getYear();
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         return calendar.getTimeInMillis();
-        //Toast.makeText(Context.UstawDateUbezpieczeniaActivity.this, "asdasdasd", Toast.LENGTH_SHORT).show();
     }
-
-
 }
