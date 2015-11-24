@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                     editor.putLong(SHARED_DATE, ustwionaDataWMilisekundach).apply();
                     Log.d("SharedPreferences", "Zmienna ustawionaDataWMilisekundach o wartosci "
                             + ustwionaDataWMilisekundach + " zostala zapisana w SharedPreferences pod tagiem SHARED_DATE");
+                    Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
+                    startActivity(intent);
 
                 }
 
