@@ -21,12 +21,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/display_status_id" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/days_left_display_id"
         android:layout_centerVertical="true"
+        fontPath="fonts/wr.ttf"
+        android:textAlignment="center"
+        android:textColor="@color/colorDisplayDate"
+        android:textSize="30sp"
         android:layout_centerHorizontal="true" />
 
 
