@@ -1,6 +1,4 @@
 # TTNIR
 The Totally New Insurance Reminder
-Work in progress, the app should :
-1. be able to remember the date of your insurance with SharedPreferences
-2. Use AlarmManager (Job Scheduler) to remind you about the upcoming renewal (IntentService + AlarmManager)
-3. ... 
+
+This app should remind user of the upcoming car insurance ending to give one a chance to look for a better offer with a proper notice. The app should use AlarmManager, SharedPreferences, Service, JodaTime. 
