@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.ViewDebug;
 import android.widget.TextView;
 
@@ -52,5 +53,11 @@ public class DisplayDataActivity extends AppCompatActivity {
         textView2.setText("Data w milisekuncach przerobiona za pomoca Joda Time na date : " + dt.toString());
 
         finalDisplayDays.setText((dtYear.getDayOfWeek() + " / " + dtYear.getMonthOfYear() + " / " + dtYear.getYear()));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 }
