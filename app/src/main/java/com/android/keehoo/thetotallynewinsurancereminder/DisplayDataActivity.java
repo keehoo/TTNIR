@@ -21,8 +21,6 @@ public class DisplayDataActivity extends AppCompatActivity {
 
     private long dataUbezpieczenieWMilisekundach;
     public SharedPreferences sharedPreferences;
-    private TextView textView;
-    private TextView textView2;
     private TextView finalDisplayDays;
     public static final String SHARED_DATE = "data";
     private String days;
@@ -47,20 +45,13 @@ public class DisplayDataActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
         dataUbezpieczenieWMilisekundach = (sharedPreferences.getLong(SHARED_DATE, -1));
-        textView = (TextView) findViewById(R.id.display_status_id);
-        textView2 = (TextView) findViewById(R.id.display_status_id2);
         finalDisplayDays = (TextView) findViewById(R.id.days_left_display_id);
-        textView.setText("Data ubezpieczenia w milisekundach:   " + dataUbezpieczenieWMilisekundach + "     " +
-                days + " cv  ");
 
         DateTime dt = new DateTime(dataUbezpieczenieWMilisekundach);
         DateTime dtYear = new DateTime(dt.plusYears(1));
-        DateTime dtSixMonths = new DateTime(dt.plusMonths(6));
+        DateTime dtSixMonths = new DateTime(dt.plusMonths(6)); // unused yet - the funcionality will be added to display insurances that last 6 months or custom amount of days.
         DateTime now = new DateTime();
 
-        textView2.setText("Data w milisekuncach przerobiona za pomoca Joda Time na date : " + dt.toString());
-
-        //finalDisplayDays.setText((dtYear.getDayOfWeek() + " / " + dtYear.getMonthOfYear() + " / " + dtYear.getYear()));
         days = String.valueOf(Days.daysBetween(now.withTimeAtStartOfDay(), dtYear.withTimeAtStartOfDay()).getDays());
         finalDisplayDays.setText(days);
     }

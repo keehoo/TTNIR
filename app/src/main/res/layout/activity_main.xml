@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:datePickerMode="spinner"
         android:id="@+id/dp"
-        android:layout_centerInParent="true" />
-
+        android:layout_centerInParent="true"
+        android:background="#77FFFFFF" />
 
 </RelativeLayout>
