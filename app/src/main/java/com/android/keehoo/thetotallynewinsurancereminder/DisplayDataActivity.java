@@ -14,7 +14,6 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.joda.time.LocalTime;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -28,6 +27,12 @@ public class DisplayDataActivity extends AppCompatActivity {
     public static final String SHARED_DATE = "data";
     private String days;
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d("DisplayData", "OnBackPressed");
+    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -74,6 +79,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             Log.d("OnOptionsItemSelected", "      Usunieto SHARED PREFERENCES");
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
 
             return true;
         }

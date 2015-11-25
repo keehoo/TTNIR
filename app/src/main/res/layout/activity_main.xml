@@ -4,29 +4,33 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity"
+    android:background="@drawable/bgchoosedate">
+
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/status_id"
+        android:hint="status"
+        android:layout_toLeftOf="@+id/set_date_is" />-->
+    <!-- <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Ustaw Date Ubezpieczenia"
+         android:id="@+id/set_date_is"
+         android:layout_alignParentTop="true"
+         android:layout_alignParentRight="true"
+
+          />-->
 
     <DatePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:datePickerMode="spinner"
         android:id="@+id/dp"
-        />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/status_id"
-        android:hint="status"
-        android:layout_above="@+id/set_date_is" />
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Ustaw Date Ubezpieczenia"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/set_date_is"/>
+        android:layout_centerInParent="true" />
 
 
 </RelativeLayout>
