@@ -7,6 +7,11 @@
         android:title="Ustaw date"
         app:showAsAction="always"
         android:background="#77FFFFFF" />
+    <item xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ustaw_notification"
+        android:title="Ustaw przypomnienie"
+        app:showAsAction="ifRoom"
+        android:background="#77FFFFFF" />
 
     <item xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/_open_www_id"
