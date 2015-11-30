@@ -4,7 +4,13 @@
     <item xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ustaw_nowa_date_id"
         android:title="Ustaw nowa date"
-        app:showAsAction="collapseActionView" />
+        app:showAsAction="ifRoom" />
+
+    <item xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ustaw_notification"
+        android:title="Ustaw przypomnienie"
+        app:showAsAction="ifRoom"
+        android:background="#77FFFFFF" />
 
     <item xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/_open_www_id"

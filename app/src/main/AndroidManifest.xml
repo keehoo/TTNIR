@@ -21,10 +21,11 @@
             android:name=".NotificationService"
             android:exported="false" />
 
-        <receiver
-            android:name=".NotificationBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false" />
+        <receiver android:name=".NotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="${applicationId}.BROADCAST_ACTION" />
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".SetNotificationActivity"></activity>
     </application>

@@ -10,10 +10,25 @@
     tools:context=".MainActivity"
     android:background="@drawable/bgchoosedate">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/set_notification_id" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Switch"
+        android:id="@+id/switch1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Text"
-        android:layout_centerInParent="true" />
+        android:hint="status"
+        android:id="@+id/status_id" />
 
 </RelativeLayout>

@@ -58,11 +58,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("OnOptionsItemSelected", "   Wybrano date i uruchomiono Activity Display Date");
             finish();
             return true;
-        } else if (item.getItemId() == R.id.ustaw_notification) {
-            Intent intent = new Intent(this, SetNotificationActivity.class);
-            startActivity(intent);
-            finish();
-
         }
         return super.onOptionsItemSelected(item);
     }

@@ -12,5 +12,6 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
         Intent serviceIntent = new Intent(context, NotificationService.class);
         serviceIntent.putExtras(intent);
         context.startService(serviceIntent);
+
     }
 }
