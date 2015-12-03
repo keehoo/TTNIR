@@ -73,9 +73,10 @@ public class DisplayDataActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (item.getItemId() == R.id.ustaw_notification) {
-            Intent intent = new Intent(this, SetNotificationActivity.class);
+            Intent intent = new Intent(DisplayDataActivity.this, SetNotificationActivity.class);
             startActivity(intent);
-            finish();
+            return true;
+
         }
         return super.onOptionsItemSelected(item);
     }

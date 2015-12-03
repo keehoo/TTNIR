@@ -29,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREFS_NAME = "prefs";
     public static final String SHARED_DATE = "data";
     public long ustwionaDataWMilisekundach;
-    private boolean set;
+
 
     public SharedPreferences sharedPreferences;
-    private Button sd;
-    private TextView textView;
+    //private Button sd;
+    //private TextView textView;
 
 
     @Override
@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             editor.putLong(SHARED_DATE, ustwionaDataWMilisekundach).apply();
             Log.d("SharedPreferences", "Zmienna ustawionaDataWMilisekundach o wartosci "
                     + ustwionaDataWMilisekundach + " zostala zapisana w SharedPreferences pod tagiem SHARED_DATE");
-            set = true;
             Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
             startActivity(intent);
             Log.d("OnOptionsItemSelected", "   Wybrano date i uruchomiono Activity Display Date");
@@ -70,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Log.d("OnCreate-Activity Main", "            OnCreate w Main Activity");
 
-        //sd = (Button) findViewById(R.id.set_date_is);
-        //textView = (TextView) findViewById(R.id.status_id);
         sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
 
         if (sharedPreferences.contains(SHARED_DATE)) {
@@ -86,25 +83,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d("SharedPreferences", "      Shared Preferences does not contain SHARED_DAT tag");
             Toast.makeText(MainActivity.this, "Wybierz date ubezpieczenia", Toast.LENGTH_LONG).show();
-        /*    sd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final DatePicker dp = (DatePicker) findViewById(R.id.dp);
-                    ustwionaDataWMilisekundach = getDateFromDatePicket(dp);
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    String ustawionaDataJakoData = formatter.format(new Date(ustwionaDataWMilisekundach));
-                    textView.setText(ustawionaDataJakoData);
-                    sharedPreferences = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putLong(SHARED_DATE, ustwionaDataWMilisekundach).apply();
-                    Log.d("SharedPreferences", "Zmienna ustawionaDataWMilisekundach o wartosci "
-                            + ustwionaDataWMilisekundach + " zostala zapisana w SharedPreferences pod tagiem SHARED_DATE");
-                    Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
-                    startActivity(intent);
-
-                }
-
-            });*/
         }
     }
 
