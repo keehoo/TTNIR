@@ -96,15 +96,16 @@ public class SetNotificationActivity extends AppCompatActivity {
     protected void removeScheduledNotification() {
         boolean alarmUp = (PendingIntent.getBroadcast(this, 10,
                 new Intent(BROADCAST_ACTION),
-                PendingIntent.FLAG_UPDATE_CURRENT) != null);
+                PendingIntent.FLAG_NO_CREATE) != null);
 
         if (alarmUp) {
-            Log.d("SetNotificationActivity", "       Alarm is already active");
+            Log.d("SetNotificationActivity", "       Alarm is active");
             status.setText("Alarm jest zalaczony!");
             //PendingIntent.getBroadcast(this, 10, new Intent(BROADCAST_ACTION), PendingIntent.FLAG_CANCEL_CURRENT);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             alarmManager.cancel(pendingIntent);
-            Log.d("SetNotificationActivity", "       Alarm should be disabled here! :(");
+            pendingIntent.cancel();
+            Log.d("SetNotificationActivity", "       Disabling the alarm . . . . . DISABLED!  ");
 
         } else {
             Log.d("Is Alarm Set?", "                 Alarm isn't set at this moment");
