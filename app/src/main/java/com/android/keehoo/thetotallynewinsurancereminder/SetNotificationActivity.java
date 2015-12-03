@@ -53,6 +53,8 @@ public class SetNotificationActivity extends AppCompatActivity {
     @Bind(R.id.data_ubezpieczenia_id)
     protected TextView dataUbezpieczenia;
 
+    public PendingIntent pendingIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +86,7 @@ public class SetNotificationActivity extends AppCompatActivity {
         Log.d("MainActivity", "Nowy intent o nazwie broadcast (INTENT(BROADCAST_ACTION) put Extra pod zmienna text= EXTRA_NOTIFICATION_TEXT");
         PendingIntent alarmAction = PendingIntent.getBroadcast(this, 10, broadcast, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d("MainActivity", " PendingIntent alarmAction z parametrami this, hashCode, broadcast i pendingIntent.FLAG_UPDATE_CURRENT");
+        pendingIntent = alarmAction; // to jest po to, zeby miec dostep do tego samego intentu zeby go anulowac (cancel)
         alarmManager.set(AlarmManager.RTC_WAKEUP, seconds, alarmAction);  //dodawanie long = int najwyrazniej daje longa...
         Log.d("MainActivity", "setAlarmManager z parametrami AlarmManager.RTC_WAKEUP, currentTime + sekundy ustawione wczesniej, alarmAction... alarmAction to jest pendingItentn powyzej");
         Toast.makeText(SetNotificationActivity.this, "Alarm Ustawiony na " + seconds + " sekund", Toast.LENGTH_SHORT).show();
@@ -93,11 +96,18 @@ public class SetNotificationActivity extends AppCompatActivity {
     protected void removeScheduledNotification() {
         boolean alarmUp = (PendingIntent.getBroadcast(this, 10,
                 new Intent(BROADCAST_ACTION),
-                PendingIntent.FLAG_NO_CREATE) != null);
+                PendingIntent.FLAG_UPDATE_CURRENT) != null);
 
         if (alarmUp) {
             Log.d("SetNotificationActivity", "       Alarm is already active");
             status.setText("Alarm jest zalaczony!");
+            //PendingIntent.getBroadcast(this, 10, new Intent(BROADCAST_ACTION), PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarmManager.cancel(pendingIntent);
+            Log.d("SetNotificationActivity", "       Alarm should be disabled here! :(");
+
+        } else {
+            Log.d("Is Alarm Set?", "                 Alarm isn't set at this moment");
         }
     }
 }
