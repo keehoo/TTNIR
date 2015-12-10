@@ -4,26 +4,7 @@
 
     <item xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ustaw_date"
-        android:title="Ustaw date"
+        android:title="Zrobione!"
         app:showAsAction="always"
         android:background="#77FFFFFF" />
-    <item xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/ustaw_notification"
-        android:title="Ustaw przypomnienie"
-        app:showAsAction="ifRoom"
-        android:background="#77FFFFFF" />
-
-    <item xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/_open_www_id"
-        android:title="WWW"
-        app:showAsAction="collapseActionView" />
-
-    <item xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/send_email_id"
-        android:title="Email"
-        app:showAsAction="collapseActionView" />
-    <item xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/mapa_id"
-        android:title="Znajdz nas na mapie"
-        app:showAsAction="collapseActionView" />
 </menu>

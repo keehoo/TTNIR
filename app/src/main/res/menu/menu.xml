@@ -6,6 +6,7 @@
         android:title="Ustaw nowa date"
         app:showAsAction="ifRoom" />
 
+
     <item xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ustaw_notification"
         android:title="Ustaw przypomnienie"
@@ -25,4 +26,5 @@
         android:id="@+id/mapa_id"
         android:title="Znajdz nas na mapie"
         app:showAsAction="collapseActionView" />
+
 </menu>
