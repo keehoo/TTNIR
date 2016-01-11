@@ -3,51 +3,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity"
-    android:orientation="vertical"
-   >
+    tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/set_notification_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ustaw alarm"
-        android:id="@+id/set_notification_id" />
+        android:text="Ustaw alarm" />
 
     <Button
+        android:id="@+id/clear_notification_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Usun alarm"
-        android:id="@+id/clear_notification_id" />
+        android:text="Usun alarm" />
 
 
     <TextView
+        android:id="@+id/status_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="status"
-        android:id="@+id/status_id" />
+        android:hint="status" />
 
     <TextView
+        android:id="@+id/data_ubezpieczenia_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="status"
-        android:id="@+id/data_ubezpieczenia_id" />
+        android:hint="status" />
 
     <TextView
+        android:id="@+id/alarm_ustawiony_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="status"
-        android:id="@+id/alarm_ustawiony_id" />
+        android:hint="status" />
 
     <SeekBar
+        android:id="@+id/seekBar_insurance_notice_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/seekBar_insurance_notice_id"
-        android:max="365"
+        android:layout_gravity="center_horizontal"
 
-        android:layout_gravity="center_horizontal" />
+        android:max="365" />
 
+    <Button
+        android:id="@+id/set_notification_technical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ustaw przypomnienie o przeglądzie technicznym" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Usuń przypomnienie o przeglądzie technicznym" />
+
+    <SeekBar
+        android:id="@+id/seekBar_technical_notice_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:max="365" />
 </LinearLayout>
