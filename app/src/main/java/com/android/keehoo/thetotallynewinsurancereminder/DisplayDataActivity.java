@@ -24,6 +24,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class DisplayDataActivity extends AppCompatActivity {
 
 
+    public static final String ILOSC_DNI = "ilosc dni do konca ubezpieczenia";
+
     private long dataUbezpieczenieWMilisekundach;
     private long dataTechnicalWMilisekundach;
     public SharedPreferences sharedPreferences;
@@ -293,8 +295,10 @@ public class DisplayDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DisplayDataActivity.this, SetNotificationActivity.class);
+                intent.putExtra(ILOSC_DNI, finalDisplayDays.getText().toString());
                 startActivity(intent);
 
+                //daysBetween(new DateTime(dataUbezpieczenieWMilisekundach), okresUbezpieczeniaWmiesiacach
             }
         });
 
