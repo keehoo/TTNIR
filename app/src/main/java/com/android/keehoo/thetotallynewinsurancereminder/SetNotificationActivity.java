@@ -30,12 +30,13 @@ public class SetNotificationActivity extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
 
     protected long currentInsuranceDate;
+    protected int okresUbezpieczenia;
     protected long alarmDate;
 
     @OnClick(R.id.set_notification_id)
     public void onClick() {
 
-        alarmDate = sharedPreferences.getLong(SHARED_DATE, -1);
+        alarmDate = sharedPreferences.getLong(MainActivity.SHARED_DATE, -1);
         DateTime dt = new DateTime(alarmDate);
         dt = dt.plusMonths(11);
         scheduleNotification("!!! ALARM !!!", dt.getMillis());
@@ -61,13 +62,14 @@ public class SetNotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_notification);
         ButterKnife.bind(this);
         JodaTimeAndroid.init(this);
-        sharedPreferences = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
 
 
-        if (sharedPreferences.contains(SHARED_DATE)) {
+        if (sharedPreferences.contains(MainActivity.SHARED_DATE)) {
             Log.d("SetNotificationActivity", "SharedPrefs contain SHARED_DATA");
-            currentInsuranceDate = sharedPreferences.getLong(SHARED_DATE, -1);
-            status.setText("Current insurance date in millis: " + currentInsuranceDate);
+            currentInsuranceDate = sharedPreferences.getLong(MainActivity.SHARED_DATE, -1);
+            okresUbezpieczenia = sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12);
+            status.setText("Data rozpoczecia okres ubezpieczenia to " + new DateTime(currentInsuranceDate) + " i bedzie trwal przez  "+ okresUbezpieczenia+" miesiecy" );
 
 
         } else {

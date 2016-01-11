@@ -1,7 +1,5 @@
 package com.android.keehoo.thetotallynewinsurancereminder;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,18 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.joda.time.DateTime;
-import org.w3c.dom.Text;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREFS_NAME = "prefs";
     public static final String SHARED_DATE = "data";
     public static final String SHARED_DATE_TECHNICAL = "data_technical";
+    public static final String SHARED_DATE_DURATION_TECH = "duration_of_the_technical";
+    public static final String SHARED_DATE_DURATION_INS = "duration_of_the_insurance";
 
     public static final String INSURANCE_BUTTON_ENABLED = "false";
     public static final String TECHNICAL_BUTTON_ENABLED = "false";
@@ -43,19 +38,17 @@ public class MainActivity extends AppCompatActivity {
     Button techButton;  //default accessor - visible only in package - I hope :)
 
 
-
     @Bind(R.id.obecna_data_ubezpieczenia)
     protected TextView obecnaDataUbezpieczenia;
 
     @Bind(R.id.obecna_data_technical)
-    protected  TextView obecnaDataTechnical;
+    protected TextView obecnaDataTechnical;
 
     @OnClick(R.id.set_insurance_date_id)
     public void onSetInsuranceDateClick() {
         final DatePicker dp = (DatePicker) findViewById(R.id.dp);
         ustwionaDataWMilisekundach = getDateFromDatePicket(dp);
         saveInSharedPreferences(SHARED_DATE, ustwionaDataWMilisekundach);
-        Toast.makeText(MainActivity.this, "Data ubezpieczenia ustawiona na " + ustwionaDataWMilisekundach, Toast.LENGTH_LONG).show();
         obecnaDataUbezpieczenia.setText("Obecna data ubezpieczenia " + dateText(new DateTime(sharedPreferences.getLong("data", -1))));
         ustwionaDataWMilisekundach = 0;
     }
@@ -65,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         final DatePicker dp = (DatePicker) findViewById(R.id.dp);
         ustwionaDataWMilisekundach = getDateFromDatePicket(dp);
         saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustwionaDataWMilisekundach);
-        Toast.makeText(MainActivity.this, "Data przegladu technicznego ustawiona na " + ustwionaDataWMilisekundach, Toast.LENGTH_LONG).show();
         obecnaDataTechnical.setText("Obecna data przegladu " + dateText(new DateTime(sharedPreferences.getLong("data_technical", -1))));
         ustwionaDataWMilisekundach = 0;
 
@@ -80,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         Log.d("MainActivity", "start");
-        insButton = (Button)findViewById(R.id.set_insurance_date_id);
+        insButton = (Button) findViewById(R.id.set_insurance_date_id);
         Log.d("MainActivity", "insButton");
-        techButton = (Button)findViewById(R.id.set_technical_date_id);
+        techButton = (Button) findViewById(R.id.set_technical_date_id);
         Log.d("MainActivity", "techButton");
 
         if (getIntent().getExtras() != null) {
@@ -98,21 +90,18 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity - OnCreate", "    Shared prefs contain both - insurance date and technical check date");
             Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
             startActivity(intent);
+            finish();
         }
-        if (sharedPreferences.contains(SHARED_DATE_TECHNICAL)){
+        if (sharedPreferences.contains(SHARED_DATE_TECHNICAL)) {
             Log.d("MainActivity - OnCreate", "    Shared prefs contain technical check date only");
             insButton.setEnabled(true);
-            Toast.makeText(MainActivity.this, "Proszę wybrać date rozpoczęcia ubezpieczenia", Toast.LENGTH_SHORT).show();
+
         }
-        if (sharedPreferences.contains(SHARED_DATE)){
+        if (sharedPreferences.contains(SHARED_DATE)) {
             Log.d("MainActivity - OnCreate", "    Shared prefs contain insurance date only ");
-            Toast.makeText(MainActivity.this, "Proszę wybrać datę wykonania przeglądu technicznego", Toast.LENGTH_SHORT).show();
             techButton.setEnabled(true);
-        }
-        else
-        {
+        } else {
             Log.d("SharedPreferences", "      Shared Preferences does not contain SHARED_DAT tag");
-            Toast.makeText(MainActivity.this, "Wybierz date ubezpieczenia", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -134,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong(key, dataWmilisekundach).apply();
     }
-
 
 
     @Override
@@ -161,6 +149,6 @@ public class MainActivity extends AppCompatActivity {
         int rok = dateTime.getYear();
         int miesiac = dateTime.getMonthOfYear();
         int dzien = dateTime.getDayOfMonth();
-        return new String(dzien + " " + miesiac + " " + rok );
+        return new String(dzien + " " + miesiac + " " + rok);
     }
 }
