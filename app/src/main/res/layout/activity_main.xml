@@ -3,73 +3,110 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/bialy"
+    android:paddingBottom="0dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/linear_layout_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linear_layout_id">
+        android:background="@android:color/holo_blue_bright"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/set_insurance_date_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Data ubezpieczenia"
+            android:background="@color/niebieski"
+            android:textColor="@color/bialy"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
-            />
+            android:text="Data ubezp."
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/set_technical_date_id"
             android:layout_width="match_parent"
+            android:background="@color/niebieski"
+            android:textColor="@color/bialy"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_weight="1"
-            android:text="Data przegladu technicznego"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
-            />
+            android:text="Data przegladu"
+            android:textSize="15sp" />
 
     </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ustaw date, a następnie kliknij jeden z przycisków powyżej, aby ją zapisać"
+        android:id="@+id/tekst1"
+        android:layout_below="@+id/linear_layout_id"
+        android:textColor="@color/niebieski"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+
+        android:paddingTop="@dimen/activity_vertical_margin"/>
+
 
     <DatePicker
         android:id="@+id/dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="#77FFFFFF"
+        android:layout_below="@+id/tekst1"
+        android:background="@color/niebieski"
         android:datePickerMode="spinner"
-        android:dayOfWeekBackground="@android:color/holo_blue_bright"
-        android:dayOfWeekTextAppearance="@android:color/holo_green_dark"
+        android:headerDayOfMonthTextAppearance="@color/bialy"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:headerDayOfMonthTextAppearance="@android:color/background_dark" />
-
+        android:paddingTop="@dimen/activity_vertical_margin" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/linear_for_status_texts"
+    android:layout_below="@+id/dp">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/obecna_data_ubezpieczenia"
-        android:layout_below="@+id/dp"
-        />
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/obecna_data_technical"
-        android:layout_below="@+id/obecna_data_ubezpieczenia"
-        />
+       />
 
+    <TextView
+        android:id="@+id/obecna_data_technical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/obecna_data_ubezpieczenia" />
+</LinearLayout>
+    <Button
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ok_button_id"
+
+        android:background="#00000000"
+        android:textColor="@color/bialy"
+        android:drawableTop="@drawable/ok_icon"
+        android:gravity="left|center_vertical"
+        style="@style/Base.AlertDialog.AppCompat.Light"
+
+        />
 
 </RelativeLayout>
+

@@ -26,16 +26,20 @@ public class SetNotificationActivity extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
 
     protected long currentInsuranceDate;
+    protected long currentTechnicalDate;
     protected int okresUbezpieczenia;
+    protected int okresPrzegladu;
+    protected int iloscDniDoKoncaPrzegladu;
     protected int iloscDniDoKoncaUbezpieczenia;
 
-    public void setWyprzedzenieAlarmu(int wyprzedzenieAlarmu) {
-        this.wyprzedzenieAlarmu = wyprzedzenieAlarmu;
-    }
 
     protected int wyprzedzenieAlarmu;
+
+
+    protected int wyprzedzenieAlarmuTech;
     protected long alarmDate;
     SeekBar insuranceseekBar;
+    SeekBar technicalSeekBar;
 
 
     @Bind(R.id.status_id)
@@ -57,12 +61,16 @@ public class SetNotificationActivity extends AppCompatActivity {
         JodaTimeAndroid.init(this);
         sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         iloscDniDoKoncaUbezpieczenia = Integer.parseInt(getIntent().getExtras().getString(DisplayDataActivity.ILOSC_DNI, "nothing"));
+        iloscDniDoKoncaPrzegladu = Integer.parseInt(getIntent().getExtras().getString(DisplayDataActivity.ILOSC_DNI_TECHNICAL, "nothing at all"));
 
 
         if (sharedPreferences.contains(MainActivity.SHARED_DATE)) {
             Log.d("SetNotificationActivity", "SharedPrefs contain SHARED_DATA");
             currentInsuranceDate = sharedPreferences.getLong(MainActivity.SHARED_DATE, -1);
+            currentTechnicalDate = sharedPreferences.getLong(MainActivity.SHARED_DATE_TECHNICAL, -1);
             okresUbezpieczenia = sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12);
+            okresPrzegladu = sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_TECH, 12);
+
             status.setText("Data rozpoczecia okres ubezpieczenia to " + new DateTime(currentInsuranceDate) + " i bedzie trwal przez  " +
                     okresUbezpieczenia + " miesiecy" + " a obecnie do konca pozostalo" + iloscDniDoKoncaUbezpieczenia + " dni");
         } else {
@@ -77,6 +85,25 @@ public class SetNotificationActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setWyprzedzenieAlarmu(progress);
                 status.setText("Alarm zadzwoni " + wyprzedzenieAlarmu + " dni przed koncem ubezpieczenia");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        technicalSeekBar = (SeekBar) findViewById(R.id.seekBar_technical_notice_id);
+        technicalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                setWyprzedzenieAlarmuTech(progress);
+                status.setText("wyprzedzenie alarmu "+wyprzedzenieAlarmuTech);
             }
 
             @Override
@@ -134,4 +161,24 @@ public class SetNotificationActivity extends AppCompatActivity {
         status.setText("Alarm ustawiony na " + dt.minusDays(wyprzedzenieAlarmu) + "wyprzedzenie alarmu to " + wyprzedzenieAlarmu + " " +
                 "data podpisania umowy ubezpieczeniowej " + alarmDate + " okres ubezpieczenia to " + okresUbezpieczenia);
     }
+
+    @OnClick(R.id.set_notification_technical)
+    public void onClickTech() {
+        alarmDate = sharedPreferences.getLong(MainActivity.SHARED_DATE_TECHNICAL, -1);
+        DateTime dt = new DateTime(alarmDate).plusMonths(okresPrzegladu);
+        scheduleNotification("!!! ALARM !!!", dt.minusDays(wyprzedzenieAlarmu).getMillis());
+
+
+    }
+
+
+    public void setWyprzedzenieAlarmu(int wyprzedzenieAlarmu) {
+        this.wyprzedzenieAlarmu = wyprzedzenieAlarmu;
+    }
+
+    public void setWyprzedzenieAlarmuTech(int wyprzedzenieAlarmuTech) {
+        this.wyprzedzenieAlarmuTech = wyprzedzenieAlarmuTech;
+    }
+
+
 }

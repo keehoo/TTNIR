@@ -25,6 +25,7 @@ public class DisplayDataActivity extends AppCompatActivity {
 
 
     public static final String ILOSC_DNI = "ilosc dni do konca ubezpieczenia";
+    public static final String ILOSC_DNI_TECHNICAL = "ilosc dni do konca przegladu technicznego";
 
     private long dataUbezpieczenieWMilisekundach;
     private long dataTechnicalWMilisekundach;
@@ -296,6 +297,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DisplayDataActivity.this, SetNotificationActivity.class);
                 intent.putExtra(ILOSC_DNI, finalDisplayDays.getText().toString());
+                intent.putExtra(ILOSC_DNI_TECHNICAL, finalTechnicalDisplayDays. getText().toString());
                 startActivity(intent);
 
                 //daysBetween(new DateTime(dataUbezpieczenieWMilisekundach), okresUbezpieczeniaWmiesiacach
