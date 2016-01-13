@@ -6,10 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -69,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     public void onSetInsuranceDateClick() {
         final DatePicker dp = (DatePicker) findViewById(R.id.dp);
         ustwionaDataWMilisekundach = getDateFromDatePicket(dp);
+        Log.d("MainActivity", "Data ubezpieczenia ustawiona na " + ustwionaDataWMilisekundach);
         /**
          * saveInSharedPreferences(SHARED_DATE, ustwionaDataWMilisekundach);
          * komentuje to, bo data powinna sie zapisywac w shared prefs w momencie klikniecia buttona ok!
@@ -81,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
     public void onSetTechnicalDateClick() {
         final DatePicker dp = (DatePicker) findViewById(R.id.dp);
         ustawionaDataTechWMilisekundach = getDateFromDatePicket(dp);
-        saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustwionaDataWMilisekundach);
+        Log.d("MainActivity", "Data przegladu ustawiona na " + ustawionaDataTechWMilisekundach);
+        //saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustwionaDataWMilisekundach);
         obecnaDataTechnical.setText("Obecna data przegladu " + dateText(new DateTime(sharedPreferences.getLong("data_technical", -1))));
 
 
@@ -102,15 +100,22 @@ public class MainActivity extends AppCompatActivity {
 
         if (getIntent().getExtras() != null) {
 
-            if (getIntent().getExtras().getBoolean(INSURANCE_BUTTON_ENABLED))
+            if (getIntent().getExtras().getBoolean(INSURANCE_BUTTON_ENABLED)) {
                 insButton.setEnabled(true);
-            else insButton.setEnabled(false);
+                //ustawionaDataTechWMilisekundach = sharedPreferences.getLong(SHARED_DATE_TECHNICAL, 0L);
 
-            if (getIntent().getExtras().getBoolean(TECHNICAL_BUTTON_ENABLED))
+            } else {
+                insButton.setEnabled(false);
+                ustawionaDataTechWMilisekundach = sharedPreferences.getLong(SHARED_DATE_TECHNICAL, 0L);
+            }
+            if (getIntent().getExtras().getBoolean(TECHNICAL_BUTTON_ENABLED)) {
                 techButton.setEnabled(true);
-            else techButton.setEnabled(false);
-        }
+               // ustwionaDataWMilisekundach = sharedPreferences.getLong(SHARED_DATE, 0L);
+            } else {techButton.setEnabled(false);
+                ustwionaDataWMilisekundach = sharedPreferences.getLong(SHARED_DATE, 0L);
 
+            }
+        }
 
 
         if (sharedPreferences.contains(SHARED_DATE) && sharedPreferences.contains(SHARED_DATE_TECHNICAL)) {
@@ -150,24 +155,6 @@ public class MainActivity extends AppCompatActivity {
     public void saveInSharedPreferences(String key, long dataWmilisekundach) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong(key, dataWmilisekundach).apply();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_choser, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.ustaw_date) {
-            Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public String dateText(DateTime dateTime) {

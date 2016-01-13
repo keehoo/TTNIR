@@ -33,8 +33,6 @@
         <Button
             android:id="@+id/set_technical_date_id"
             android:layout_width="match_parent"
-            android:background="@color/niebieski"
-            android:textColor="@color/bialy"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_weight="1"
@@ -83,13 +81,15 @@
         android:id="@+id/obecna_data_ubezpieczenia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/czerwony"
        />
 
     <TextView
         android:id="@+id/obecna_data_technical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/obecna_data_ubezpieczenia" />
+        android:layout_below="@+id/obecna_data_ubezpieczenia"
+        android:textColor="@color/zielony"/>
 </LinearLayout>
     <Button
         android:layout_centerHorizontal="true"
