@@ -19,6 +19,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
+import cn.iwgang.countdownview.CountdownView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DisplayDataActivity extends AppCompatActivity {
@@ -42,7 +43,7 @@ public class DisplayDataActivity extends AppCompatActivity {
     private Button hide;
     private Button setNotification;
     private boolean visible = true;
-
+    public CountdownView insCountDown;
 
     private int okresUbezpieczeniaWmiesiacach;
     private int okresPrzegladuTechWmiesiacach;
@@ -64,6 +65,10 @@ public class DisplayDataActivity extends AppCompatActivity {
         if (sharedPreferences.contains(MainActivity.SHARED_DATE_DURATION_INS)) {
             setInsuranceDisplay(sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12));
             durationDisplay.setText("Obecny czas trawania ubezpieczenia to " + sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12));
+            insCountDown.start(dataUbezpieczenieWMilisekundach);
+            /**
+             * TODO: add the proper amount of miliseconds to the count down....
+             */
         } else {
             Toast.makeText(DisplayDataActivity.this, "Nie ma ustawionej dlugosci ubezpieczenia!!!!", Toast.LENGTH_SHORT).show();
         }
@@ -130,9 +135,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             linearSeekBar.setVisibility(View.INVISIBLE);
             this.visible = true;
 
-        }
-
-        else {
+        } else {
             durationDisplay.setVisibility(View.VISIBLE);
             linearRadio.setVisibility(View.VISIBLE);
             linearSeekBar.setVisibility(View.VISIBLE);
@@ -147,6 +150,7 @@ public class DisplayDataActivity extends AppCompatActivity {
     }
 
     public void initiateVariables() {
+        insCountDown = (CountdownView) findViewById(R.id.count_down_ins_id);
         seekBarInsurance = (SeekBar) findViewById(R.id.seekBar);
         seekBarTech = (SeekBar) findViewById(R.id.seekBar2);
         radiogroup = (RadioGroup) findViewById(R.id.radio_group_insurance_id);
@@ -297,7 +301,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DisplayDataActivity.this, SetNotificationActivity.class);
                 intent.putExtra(ILOSC_DNI, finalDisplayDays.getText().toString());
-                intent.putExtra(ILOSC_DNI_TECHNICAL, finalTechnicalDisplayDays. getText().toString());
+                intent.putExtra(ILOSC_DNI_TECHNICAL, finalTechnicalDisplayDays.getText().toString());
                 startActivity(intent);
 
                 //daysBetween(new DateTime(dataUbezpieczenieWMilisekundach), okresUbezpieczeniaWmiesiacach

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bialy">
@@ -124,6 +125,27 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:background="@color/niebieski">
+
+            <cn.iwgang.countdownview.CountdownView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:isHideTimeBackground="true"
+            app:isShowDay="true"
+            app:isShowHour="true"
+            app:isShowMinute="true"
+            app:isShowSecond="true"
+            app:isShowMillisecond="true"
+            app:timeTextColor="#000000"
+            app:timeTextSize="22sp"
+            app:isTimeTextBold="true"
+            app:suffixGravity="bottom"
+            app:suffixTextColor="#000000"
+            app:suffixTextSize="12sp"
+            app:suffixHour=":"
+            app:suffixMinute=":"
+            app:suffixSecond=":"
+            app:suffixMillisecond=":"
+                android:id="@+id/count_down_ins_id"/>
 
             <TextView
                 android:id="@+id/days_left_display_id"
