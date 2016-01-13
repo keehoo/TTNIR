@@ -29,6 +29,7 @@ public class DisplayDataActivity extends AppCompatActivity {
     public static final String ILOSC_DNI_TECHNICAL = "ilosc dni do konca przegladu technicznego";
 
     private long dataUbezpieczenieWMilisekundach;
+    private long dataZakonczeniaUbezpieczeniaWMilisekundach;
     private long dataTechnicalWMilisekundach;
     public SharedPreferences sharedPreferences;
     private TextView finalDisplayDays;
@@ -44,9 +45,12 @@ public class DisplayDataActivity extends AppCompatActivity {
     private Button setNotification;
     private boolean visible = true;
     public CountdownView insCountDown;
+    private DateTime dataZakonczeniaUbezpieczenia;
 
-    private int okresUbezpieczeniaWmiesiacach;
-    private int okresPrzegladuTechWmiesiacach;
+    private int okresUbezpieczeniaWmiesiacach;  //ilosc miesiecy
+    private int okresPrzegladuTechWmiesiacach;  //ilosc miesiecy
+
+
 
 
     @Override
@@ -64,8 +68,12 @@ public class DisplayDataActivity extends AppCompatActivity {
 
         if (sharedPreferences.contains(MainActivity.SHARED_DATE_DURATION_INS)) {
             setInsuranceDisplay(sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12));
-            durationDisplay.setText("Obecny czas trawania ubezpieczenia to " + sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12));
-            insCountDown.start(dataUbezpieczenieWMilisekundach);
+            durationDisplay.setText("Obecny czas trawania ubezpieczenia to " + sharedPreferences.getInt(MainActivity
+                    .SHARED_DATE_DURATION_INS, 12));
+            insuranceCounterReStart();
+            durationDisplay.setTextColor(getResources().getColor(R.color.czerwony));
+            durationDisplay.setText("data zakoczenia ubezp "+ dataZakonczeniaUbezpieczenia);
+
             /**
              * TODO: add the proper amount of miliseconds to the count down....
              */
@@ -75,19 +83,11 @@ public class DisplayDataActivity extends AppCompatActivity {
 
         if (sharedPreferences.contains(MainActivity.SHARED_DATE_DURATION_TECH)) {
             setTechnicaDisplay(sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_TECH, 12));
+        } else {
+            Toast.makeText(DisplayDataActivity.this, "Nie ma podanej daty zakonczenia trwania przegladu technicznego", Toast.LENGTH_SHORT).show();
         }
-        /**
-         * These two methods should be skipped if the radiobutton is clicked, need to add the shared preferences information for the radiobutton and radiogroup
-         * TODO: add Shared Prefs for insurance and technical duration
-         */
     }
 
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Log.d("DisplayData", "OnBackPressed");
-    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -102,6 +102,7 @@ public class DisplayDataActivity extends AppCompatActivity {
         DateTime dataZaIlesTamMiesiecy = dateTime.plusMonths(numberOfMonths);
         return String.valueOf(Days.daysBetween(now.withTimeAtStartOfDay(), dataZaIlesTamMiesiecy.withTimeAtStartOfDay()).getDays());
     }
+
 
     public void removeFromSharedPreferences(String key) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -120,6 +121,11 @@ public class DisplayDataActivity extends AppCompatActivity {
         dataUbezpieczenieWMilisekundach = (sharedPreferences.getLong(MainActivity.SHARED_DATE, -1));
         finalDisplayDays.setText(daysBetween(new DateTime(dataUbezpieczenieWMilisekundach), okresUbezpieczeniaWmiesiacach));
 
+    }
+
+    public void insuranceCounterReStart() {
+        dataZakonczeniaUbezpieczenia = new DateTime(dataUbezpieczenieWMilisekundach).plusDays(Integer.parseInt(finalDisplayDays.getText().toString()));
+        insCountDown.start(dataZakonczeniaUbezpieczenia.getMillis() - dataUbezpieczenieWMilisekundach);
     }
 
     public void hide() {
@@ -176,7 +182,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             public void onClick(View v) {
                 removeFromSharedPreferences(MainActivity.SHARED_DATE);
                 Log.d("DisplayData", "Usunieto date ubezpieczenia");
-                finalDisplayDays.setText("N/A");
+                finalDisplayDays.setText("0");
                 if (!sharedPreferences.contains(MainActivity.SHARED_DATE)) {
                     Intent intent = new Intent(DisplayDataActivity.this, MainActivity.class);
                     intent.putExtra(MainActivity.TECHNICAL_BUTTON_ENABLED, false);
@@ -194,7 +200,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             public void onClick(View v) {
                 removeFromSharedPreferences(MainActivity.SHARED_DATE_TECHNICAL);
                 Log.d("DisplayDateAct", " Usunieto Date przegladu technicznego");
-                finalTechnicalDisplayDays.setText("N/A");
+                finalTechnicalDisplayDays.setText("0");
                 if (sharedPreferences.contains(MainActivity.SHARED_DATE_TECHNICAL)) {
                     Log.d("Display", " Wyglada na to, ze shared date sie nie ususnel z kluczaa SHARED_DATE_TECHNICAL");
                 } else {
@@ -213,9 +219,14 @@ public class DisplayDataActivity extends AppCompatActivity {
                 if (checkedId == R.id.twelve_months_insurance_id) {
                     setOkresUbezpieczeniaWmiesiacach(12);
                     setInsuranceDisplay(okresUbezpieczeniaWmiesiacach);
+
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt(MainActivity.SHARED_DATE_DURATION_INS, 12).apply();
-                    durationDisplay.setText("Obecny czas trawania ubezpieczenia to " + sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12));
+                    dataZakonczeniaUbezpieczeniaWMilisekundach = new DateTime(dataUbezpieczenieWMilisekundach).plusMonths(12).getMillis();
+                    editor.putLong(MainActivity.SHARED_DATE_INS_MILLIS_DURATION, dataZakonczeniaUbezpieczeniaWMilisekundach).apply();
+                    durationDisplay.setText("Obecny czas trawania ubezpieczenia to " + sharedPreferences.getInt(MainActivity.
+                            SHARED_DATE_DURATION_INS, 12));
+                    insuranceCounterReStart();
 
                 }
                 if (checkedId == R.id.six_months_insurance_id) {
@@ -223,7 +234,10 @@ public class DisplayDataActivity extends AppCompatActivity {
                     setInsuranceDisplay(okresUbezpieczeniaWmiesiacach);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt(MainActivity.SHARED_DATE_DURATION_INS, 6).apply();
+                    dataZakonczeniaUbezpieczeniaWMilisekundach = new DateTime(dataUbezpieczenieWMilisekundach).plusMonths(6).getMillis();
+                    editor.putLong(MainActivity.SHARED_DATE_INS_MILLIS_DURATION, dataZakonczeniaUbezpieczeniaWMilisekundach).apply();
                     durationDisplay.setText("Obecny czas trawania ubezpieczenia to " + sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12));
+                    insuranceCounterReStart();
                 }
 
                 if (checkedId == R.id.choose_months_insurance_id)
@@ -272,6 +286,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 setInsuranceDisplay(okresUbezpieczeniaWmiesiacach);
+                insuranceCounterReStart();
 
 
             }

@@ -29,15 +29,19 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_DATE_TECHNICAL = "data_technical";
     public static final String SHARED_DATE_DURATION_TECH = "duration_of_the_technical";
     public static final String SHARED_DATE_DURATION_INS = "duration_of_the_insurance";
+    public static final String SHARED_DATE_INS_MILLIS_DURATION = "insurance duration in millis";
+    public static final String SHARED_DATE_TECH_MILLIS_DURATION = "technical check duration in millis";
 
     public static final String INSURANCE_BUTTON_ENABLED = "false";
     public static final String TECHNICAL_BUTTON_ENABLED = "false";
 
     public long ustwionaDataWMilisekundach;
+    public long ustawionaDataTechWMilisekundach;
     public SharedPreferences sharedPreferences;
 
     Button insButton;  // default - visible only in package
     Button techButton;  //default accessor - visible only in package - I hope :)
+    Button okButton; // button that saves the dates in the shared prefs
 
 
     @Bind(R.id.obecna_data_ubezpieczenia)
@@ -46,22 +50,32 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.obecna_data_technical)
     protected TextView obecnaDataTechnical;
 
+    @OnClick(R.id.ok_button_id)
+    public void onOkClick() {
+        saveInSharedPreferences(SHARED_DATE, ustwionaDataWMilisekundach);
+        saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustawionaDataTechWMilisekundach);
+
+    }
+
     @OnClick(R.id.set_insurance_date_id)
     public void onSetInsuranceDateClick() {
         final DatePicker dp = (DatePicker) findViewById(R.id.dp);
         ustwionaDataWMilisekundach = getDateFromDatePicket(dp);
-        saveInSharedPreferences(SHARED_DATE, ustwionaDataWMilisekundach);
+        /**
+         * saveInSharedPreferences(SHARED_DATE, ustwionaDataWMilisekundach);
+         * komentuje to, bo data powinna sie zapisywac w shared prefs w momencie klikniecia buttona ok!
+         */
         obecnaDataUbezpieczenia.setText("Obecna data ubezpieczenia " + dateText(new DateTime(sharedPreferences.getLong("data", -1))));
-        ustwionaDataWMilisekundach = 0;
+
     }
 
     @OnClick(R.id.set_technical_date_id)
     public void onSetTechnicalDateClick() {
         final DatePicker dp = (DatePicker) findViewById(R.id.dp);
-        ustwionaDataWMilisekundach = getDateFromDatePicket(dp);
+        ustawionaDataTechWMilisekundach = getDateFromDatePicket(dp);
         saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustwionaDataWMilisekundach);
         obecnaDataTechnical.setText("Obecna data przegladu " + dateText(new DateTime(sharedPreferences.getLong("data_technical", -1))));
-        ustwionaDataWMilisekundach = 0;
+
 
     }
 
@@ -72,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+
+        ustwionaDataWMilisekundach =0;
 
         Log.d("MainActivity", "start");
         insButton = (Button) findViewById(R.id.set_insurance_date_id);
