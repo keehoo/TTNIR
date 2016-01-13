@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
@@ -52,9 +53,16 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.ok_button_id)
     public void onOkClick() {
-        saveInSharedPreferences(SHARED_DATE, ustwionaDataWMilisekundach);
-        saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustawionaDataTechWMilisekundach);
 
+        if (ustawionaDataTechWMilisekundach == 0 || ustawionaDataTechWMilisekundach == 0) {
+            Toast.makeText(MainActivity.this, "Nie wybrano jednej z dat", Toast.LENGTH_SHORT).show();
+
+        } else {
+            saveInSharedPreferences(SHARED_DATE, ustwionaDataWMilisekundach);
+            saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustawionaDataTechWMilisekundach);
+            Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.set_insurance_date_id)
@@ -85,23 +93,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
 
-
-        ustwionaDataWMilisekundach =0;
-
-        Log.d("MainActivity", "start");
         insButton = (Button) findViewById(R.id.set_insurance_date_id);
-        Log.d("MainActivity", "insButton");
+
         techButton = (Button) findViewById(R.id.set_technical_date_id);
-        Log.d("MainActivity", "techButton");
+
 
         if (getIntent().getExtras() != null) {
-            insButton.setEnabled(getIntent().getExtras().getBoolean(INSURANCE_BUTTON_ENABLED, false));
-            Log.d("MainActivity", "getBoolean INSURANCE BUTTON ENABLED");
-            techButton.setEnabled(getIntent().getExtras().getBoolean(TECHNICAL_BUTTON_ENABLED, false));
-            Log.d("MainActivity", "getBoolean TECH BUTTON ENABLED");
+
+            if (getIntent().getExtras().getBoolean(INSURANCE_BUTTON_ENABLED))
+                insButton.setEnabled(true);
+            else insButton.setEnabled(false);
+
+            if (getIntent().getExtras().getBoolean(TECHNICAL_BUTTON_ENABLED))
+                techButton.setEnabled(true);
+            else techButton.setEnabled(false);
         }
-        sharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+
+
 
         if (sharedPreferences.contains(SHARED_DATE) && sharedPreferences.contains(SHARED_DATE_TECHNICAL)) {
             //Data juz ustawiona i zapisana w sharedPrefs. Otwieramy nowe okno z wywietlaczem

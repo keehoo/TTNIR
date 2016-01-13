@@ -307,7 +307,7 @@ public class DisplayDataActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                setInsuranceDisplay(okresPrzegladuTechWmiesiacach);
+                setTechnicaDisplay(okresPrzegladuTechWmiesiacach);
             }
         });
 
