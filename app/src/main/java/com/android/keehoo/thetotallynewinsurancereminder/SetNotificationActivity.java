@@ -71,8 +71,12 @@ public class SetNotificationActivity extends AppCompatActivity {
             okresUbezpieczenia = sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12);
             okresPrzegladu = sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_TECH, 12);
 
-            status.setText("Data rozpoczecia okres ubezpieczenia to " + new DateTime(currentInsuranceDate) + " i bedzie trwal przez  " +
-                    okresUbezpieczenia + " miesiecy" + " a obecnie do konca pozostalo" + iloscDniDoKoncaUbezpieczenia + " dni");
+            status.setText("Obecna data podpisania umowy ubezpieczeniowej "
+                    + System.getProperty("line.separator")
+                    + dateText(new DateTime(currentInsuranceDate)) + System.getProperty("line.separator")
+                    + "Obecna data wykonania przglądu " + System.getProperty("line.separator") + dateText(new DateTime(currentTechnicalDate)));
+
+
         } else {
             Log.d("SetNotificationActivity", "Shared prefs does not containg SHARED_DATA");
             Intent intent = new Intent(this, MainActivity.class);
@@ -103,7 +107,7 @@ public class SetNotificationActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setWyprzedzenieAlarmuTech(progress);
-                status.setText("wyprzedzenie alarmu "+wyprzedzenieAlarmuTech);
+                status.setText("wyprzedzenie alarmu " + wyprzedzenieAlarmuTech);
             }
 
             @Override
@@ -139,8 +143,8 @@ public class SetNotificationActivity extends AppCompatActivity {
                 new Intent(BROADCAST_ACTION),
                 PendingIntent.FLAG_NO_CREATE) != null);
 
-        if (alarmUp) {
-            //PendingIntent.getBroadcast(this, 10, new Intent(BROADCAST_ACTION), PendingIntent.FLAG_CANCEL_CURRENT);
+        if (alarmUp && pendingIntent != null) {
+
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
@@ -155,11 +159,12 @@ public class SetNotificationActivity extends AppCompatActivity {
     @OnClick(R.id.set_notification_id)
     public void onClick() {
 
-        alarmDate = sharedPreferences.getLong(MainActivity.SHARED_DATE, -1);
-        DateTime dt = new DateTime(alarmDate).plusMonths(okresUbezpieczenia);
-        scheduleNotification("!!! ALARM !!!", dt.minusDays(wyprzedzenieAlarmu).getMillis());
-        status.setText("Alarm ustawiony na " + dt.minusDays(wyprzedzenieAlarmu) + "wyprzedzenie alarmu to " + wyprzedzenieAlarmu + " " +
-                "data podpisania umowy ubezpieczeniowej " + alarmDate + " okres ubezpieczenia to " + okresUbezpieczenia);
+        alarmDate = sharedPreferences.getLong(MainActivity.SHARED_DATE, -1);  // data podpisania umowy ubezpieczeniowej
+        DateTime dt = new DateTime(alarmDate).plusMonths(okresUbezpieczenia);  //dt to data zakonczenia okresu ubezpieczenia
+        scheduleNotification("!!! ALARM !!!", dt.minusDays(wyprzedzenieAlarmu).getMillis());  // zalaczenie alarmu na date o wyprzedzenie alarmu krotsza niz koniec okresu ubezpieczenia...
+        status.setText("Alarm konca ubezpieczenia ustawiony na ... " + System.getProperty("line.separator") + dateText(dt.minusDays(wyprzedzenieAlarmu)));
+        alarmUstawiony.setText("Data podpisania umowy ubezpieczeniowej: .. " + System.getProperty("line.separator") + dateText(new DateTime(alarmDate)));
+        dataUbezpieczenia.setText("Alarm uruchomi sie " + wyprzedzenieAlarmu + " dni przed koncem okresu ubezpieczenia ");
     }
 
     @OnClick(R.id.set_notification_technical)
@@ -178,6 +183,16 @@ public class SetNotificationActivity extends AppCompatActivity {
 
     public void setWyprzedzenieAlarmuTech(int wyprzedzenieAlarmuTech) {
         this.wyprzedzenieAlarmuTech = wyprzedzenieAlarmuTech;
+    }
+
+    public String dateText(DateTime dateTime) {
+/**
+ * zmienia date z JodaTime na text - tylko dzien, miesiac i rok
+ */
+        int rok = dateTime.getYear();
+        int miesiac = dateTime.getMonthOfYear();
+        int dzien = dateTime.getDayOfMonth();
+        return new String(dzien + " / " + miesiac + " / " + rok);
     }
 
 

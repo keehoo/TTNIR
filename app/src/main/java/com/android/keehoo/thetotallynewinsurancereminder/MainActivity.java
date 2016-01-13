@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustawionaDataTechWMilisekundach);
             Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
          * saveInSharedPreferences(SHARED_DATE, ustwionaDataWMilisekundach);
          * komentuje to, bo data powinna sie zapisywac w shared prefs w momencie klikniecia buttona ok!
          */
-        obecnaDataUbezpieczenia.setText("Obecna data ubezpieczenia " + dateText(new DateTime(sharedPreferences.getLong("data", -1))));
+        obecnaDataUbezpieczenia.setText("Obecna data ubezpieczenia " + dateText(new DateTime(ustwionaDataWMilisekundach)));
 
     }
 
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         ustawionaDataTechWMilisekundach = getDateFromDatePicket(dp);
         Log.d("MainActivity", "Data przegladu ustawiona na " + ustawionaDataTechWMilisekundach);
         //saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustwionaDataWMilisekundach);
-        obecnaDataTechnical.setText("Obecna data przegladu " + dateText(new DateTime(sharedPreferences.getLong("data_technical", -1))));
+        obecnaDataTechnical.setText("Obecna data przegladu " + dateText(new DateTime(ustawionaDataTechWMilisekundach)));
 
 
     }
@@ -164,6 +165,6 @@ public class MainActivity extends AppCompatActivity {
         int rok = dateTime.getYear();
         int miesiac = dateTime.getMonthOfYear();
         int dzien = dateTime.getDayOfMonth();
-        return new String(dzien + " " + miesiac + " " + rok);
+        return new String(dzien + " / " + miesiac + " / " + rok);
     }
 }

@@ -45,12 +45,12 @@ public class DisplayDataActivity extends AppCompatActivity {
     private Button setNotification;
     private boolean visible = true;
     public CountdownView insCountDown;
+    public CountdownView techCountDown;
     private DateTime dataZakonczeniaUbezpieczenia;
+    private DateTime dataZakonczeniaPrzegladu;
 
     private int okresUbezpieczeniaWmiesiacach;  //ilosc miesiecy
     private int okresPrzegladuTechWmiesiacach;  //ilosc miesiecy
-
-
 
 
     @Override
@@ -68,11 +68,8 @@ public class DisplayDataActivity extends AppCompatActivity {
 
         if (sharedPreferences.contains(MainActivity.SHARED_DATE_DURATION_INS)) {
             setInsuranceDisplay(sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12));
-            durationDisplay.setText("Obecny czas trawania ubezpieczenia to " + sharedPreferences.getInt(MainActivity
-                    .SHARED_DATE_DURATION_INS, 12));
             insuranceCounterReStart();
-            durationDisplay.setTextColor(getResources().getColor(R.color.czerwony));
-            durationDisplay.setText("data zakoczenia ubezp "+ dataZakonczeniaUbezpieczenia);
+
 
             /**
              * TODO: add the proper amount of miliseconds to the count down....
@@ -83,6 +80,8 @@ public class DisplayDataActivity extends AppCompatActivity {
 
         if (sharedPreferences.contains(MainActivity.SHARED_DATE_DURATION_TECH)) {
             setTechnicaDisplay(sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_TECH, 12));
+            technicalCounterReStart();
+
         } else {
             Toast.makeText(DisplayDataActivity.this, "Nie ma podanej daty zakonczenia trwania przegladu technicznego", Toast.LENGTH_SHORT).show();
         }
@@ -128,6 +127,12 @@ public class DisplayDataActivity extends AppCompatActivity {
         insCountDown.start(dataZakonczeniaUbezpieczenia.getMillis() - dataUbezpieczenieWMilisekundach);
     }
 
+    public void technicalCounterReStart() {
+        dataZakonczeniaPrzegladu = new DateTime(dataTechnicalWMilisekundach).plusDays(Integer.parseInt(finalTechnicalDisplayDays.getText().toString()));
+        techCountDown.start(dataZakonczeniaPrzegladu.getMillis() - dataTechnicalWMilisekundach);
+    }
+
+
     public void hide() {
 
 
@@ -157,6 +162,7 @@ public class DisplayDataActivity extends AppCompatActivity {
 
     public void initiateVariables() {
         insCountDown = (CountdownView) findViewById(R.id.count_down_ins_id);
+        techCountDown = (CountdownView) findViewById(R.id.count_down_tech_id);
         seekBarInsurance = (SeekBar) findViewById(R.id.seekBar);
         seekBarTech = (SeekBar) findViewById(R.id.seekBar2);
         radiogroup = (RadioGroup) findViewById(R.id.radio_group_insurance_id);
@@ -262,7 +268,7 @@ public class DisplayDataActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt(MainActivity.SHARED_DATE_DURATION_TECH, 6).apply();
                     durationDisplay.setText("Obecny czas trwania przegladu technicznego to " + sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_TECH, 12));
-
+                    technicalCounterReStart();
                 }
                 if (checkedId == R.id.choose_months_id) {
 
@@ -274,7 +280,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setOkresUbezpieczeniaWmiesiacach(progress);
-                durationDisplay.setText("Duration of the insurance: " + progress);
+                durationDisplay.setText("Ustaw czas trwania ubezpieczenia na : " + progress+" miesięcy");
                 sharedPreferences.edit().putInt(MainActivity.SHARED_DATE_DURATION_INS, progress).apply();
             }
 
@@ -296,7 +302,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setOkresPrzegladuTechWmiesiacach(progress);
-                durationDisplay.setText("Duration of technical check: " + progress);
+                durationDisplay.setText("Okres ważności przeglądu technicznego : " + progress+" miesięcy");
                 sharedPreferences.edit().putInt(MainActivity.SHARED_DATE_DURATION_TECH, progress).apply();
             }
 

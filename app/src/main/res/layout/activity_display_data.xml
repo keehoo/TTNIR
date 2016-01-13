@@ -20,97 +20,100 @@
             android:id="@+id/buttons_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:background="@color/niebieski"
+            android:orientation="horizontal"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin">
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/black"
-                android:backgroundTint="@color/bialy"/>
-            <Button
-                android:id="@+id/new_insurance_date_id"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Nowa data ubezpieczenia"
-                android:drawableTop="@drawable/new_ins"
-                android:background="@color/bialy"
-                android:textColor="@color/colorPrimary"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                />
 
             <View
                 android:layout_width="3dp"
                 android:layout_height="match_parent"
                 android:background="@android:color/black"
-                android:backgroundTint="@color/bialy"
-                />
+                android:backgroundTint="@color/bialy" />
+
+            <Button
+                android:id="@+id/new_insurance_date_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/bialy"
+                android:drawableTop="@drawable/new_ins"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Nowa data ubezpieczenia"
+                android:textColor="@color/colorPrimary" />
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"
+                android:backgroundTint="@color/bialy" />
 
             <Button
                 android:id="@+id/new_technical_date_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Nowa data przeglądu"
+                android:background="@color/bialy"
                 android:drawableTop="@drawable/new_tech"
-                android:background="@color/bialy"
-                android:textColor="@color/colorPrimary"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"/>
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Nowa data przeglądu"
+                android:textColor="@color/colorPrimary" />
+
             <View
                 android:layout_width="3dp"
                 android:layout_height="match_parent"
                 android:background="@android:color/black"
-                android:backgroundTint="@color/bialy"/>
+                android:backgroundTint="@color/bialy" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Ukryj / Pokaz"
-                android:layout_weight="1"
                 android:id="@+id/hide_id"
-                android:drawableTop="@drawable/see"
-                android:background="@color/bialy"
-                android:textColor="@color/colorPrimary"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-
-                />
-            <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/black"
-                android:backgroundTint="@color/bialy"/>
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Ustaw Przypomnienie"
                 android:layout_weight="1"
-                android:id="@+id/set_notification_id"
-                android:drawableTop="@drawable/alarm_icon"
                 android:background="@color/bialy"
-                android:textColor="@color/colorPrimary"
+                android:drawableTop="@drawable/see"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Ukryj / Pokaz"
+                android:textColor="@color/colorPrimary"
+
                 />
+
             <View
                 android:layout_width="3dp"
                 android:layout_height="match_parent"
                 android:background="@android:color/black"
-                android:backgroundTint="@color/bialy"/>
+                android:backgroundTint="@color/bialy" />
+
+            <Button
+                android:id="@+id/set_notification_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/bialy"
+                android:drawableTop="@drawable/alarm_icon"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Ustaw Przypomnienie"
+                android:textColor="@color/colorPrimary" />
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"
+                android:backgroundTint="@color/bialy" />
 
         </LinearLayout>
 
@@ -119,43 +122,94 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/buttons_linear_layout"
+            android:background="@color/niebieski"
             android:orientation="vertical"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:background="@color/niebieski">
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Do konca ubezpieczenia pozostalo..."
+                android:textColor="@color/zolty" />
 
             <cn.iwgang.countdownview.CountdownView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:isHideTimeBackground="true"
-                app:isShowTimeBgDivisionLine="true"
-
-
-            app:isShowDay="true"
+                android:id="@+id/count_down_ins_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-            app:isShowHour="true"
-            app:isShowMinute="true"
-            app:isShowSecond="true"
-                android:background="@color/niebieski"
-            app:isShowMillisecond="true"
-            app:timeTextColor="@color/bialy"
-            app:timeTextSize="22sp"
-            app:isTimeTextBold="true"
-            app:suffixGravity="bottom"
-            app:suffixTextColor="@color/zielony"
-            app:suffixTextSize="12sp"
-            app:suffixHour=":"
+                android:background="#77FFFFFF"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                app:isHideTimeBackground="true"
+                app:isShowDay="true"
+                app:isShowHour="true"
+                app:isShowMillisecond="true"
+                app:isShowMinute="true"
+                app:isShowSecond="true"
+                app:isShowTimeBgDivisionLine="true"
+                app:isTimeTextBold="true"
                 app:suffixDay="dni"
-            app:suffixMinute=":"
-            app:suffixSecond=":"
-            app:suffixMillisecond=":"
-                android:id="@+id/count_down_ins_id"/>
+                app:suffixGravity="bottom"
+                app:suffixHour="godzin"
+
+                app:suffixMinute="minut"
+                app:suffixSecond="sekund"
+                app:suffixTextColor="@color/zolty"
+                app:suffixTextSize="12sp"
+                app:timeTextColor="@color/bialy"
+                app:timeTextSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Do nastepnego przegladu pozostalo..."
+                android:textColor="@color/zolty" />
+
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/count_down_tech_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#77FFFFFF"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                app:isHideTimeBackground="true"
+                app:isShowDay="true"
+                app:isShowHour="true"
+                app:isShowMillisecond="true"
+                app:isShowMinute="true"
+                app:isShowSecond="true"
+                app:isShowTimeBgDivisionLine="true"
+                app:isTimeTextBold="true"
+                app:suffixDay="dni"
+                app:suffixGravity="bottom"
+                app:suffixHour="godzin"
+
+                app:suffixMinute="minut"
+                app:suffixSecond="sekund"
+                app:suffixTextColor="@color/zolty"
+                app:suffixTextSize="12sp"
+                app:timeTextColor="@color/bialy"
+                app:timeTextSize="22sp" />
 
             <TextView
                 android:id="@+id/days_left_display_id"
-
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -178,7 +232,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/czerwony"
                 android:textSize="50sp"
-                />
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -191,12 +245,12 @@
 
         <LinearLayout
             android:id="@+id/linear_layout_for_radio_group_id"
-android:background="@color/niebieski"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/kreska"
+            android:background="@color/niebieski"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="invisible">
 
             <RadioGroup
                 android:id="@+id/radio_group_insurance_id"
@@ -283,17 +337,17 @@ android:background="@color/niebieski"
 
         <LinearLayout
             android:id="@+id/seek_bar_linear_layout_id"
-            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_layout_for_radio_group_id"
+            android:background="@color/niebieski"
             android:orientation="horizontal"
-            android:scrollbarSize="@android:dimen/thumbnail_height"
             android:paddingBottom="@dimen/activity_vertical_margin"
-          android:background="@color/niebieski"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:scrollbarSize="@android:dimen/thumbnail_height"
+            android:visibility="invisible">
 
             <SeekBar
                 android:id="@+id/seekBar"
@@ -302,9 +356,8 @@ android:background="@color/niebieski"
                 android:layout_marginEnd="37dp"
                 android:layout_marginRight="37dp"
                 android:layout_weight="1"
-                android:scrollbarStyle="insideOverlay"
-                android:max="36"/>
-
+                android:max="36"
+                android:scrollbarStyle="insideOverlay" />
 
 
             <View
@@ -320,17 +373,17 @@ android:background="@color/niebieski"
                 android:layout_marginLeft="37dp"
                 android:layout_marginStart="37dp"
                 android:layout_weight="1"
-                android:max="36"/>
+                android:max="36" />
         </LinearLayout>
+
         <TextView
-            android:layout_width="wrap_content"
-            android:visibility="invisible"
-            android:layout_height="match_parent"
             android:id="@+id/duration_display_id"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/seek_bar_linear_layout_id"
             android:hint="this is where the duration is displayed"
             android:textColor="@color/czerwony"
-            />
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
