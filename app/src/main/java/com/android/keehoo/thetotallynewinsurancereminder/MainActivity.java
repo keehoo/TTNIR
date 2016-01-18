@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_DATE_DURATION_TECH = "duration_of_the_technical";
     public static final String SHARED_DATE_DURATION_INS = "duration_of_the_insurance";
     public static final String SHARED_DATE_INS_MILLIS_DURATION = "insurance duration in millis";
-    public static final String SHARED_DATE_TECH_MILLIS_DURATION = "technical check duration in millis";
+    public static final String SHARED_DATE_TECH_MILLIS_DURATION = "technical check duration in millis";  // to tez trzeba polaczy w klasie display ...
+    public static final String INS_REMINDER_SET = "ustawione przypomnienie insurance";
+    public static final String TECH_REMINDER_SET = "ustawione przypomnienie technical check";
 
     public static final String INSURANCE_BUTTON_ENABLED = "false";
     public static final String TECHNICAL_BUTTON_ENABLED = "false";

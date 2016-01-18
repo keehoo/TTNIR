@@ -10,6 +10,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="Przypomnienie o ubezpieczeniu samochodu.. "
+        android:textStyle="bold"/>
     <Button
         android:id="@+id/set_notification_id"
         android:layout_width="match_parent"
@@ -22,6 +32,21 @@
         android:layout_height="wrap_content"
         android:text="Usun alarm" />
 
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Switch"
+        android:id="@+id/switch_insurance"
+        android:layout_gravity="center_horizontal" />
+
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Switch"
+        android:id="@+id/switch_technical"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/status_id"
