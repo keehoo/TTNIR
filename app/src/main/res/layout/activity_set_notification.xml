@@ -96,7 +96,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Usuń przypomnienie o przeglądzie technicznym" />
+        android:text="Usuń przypomnienie o przeglądzie technicznym"
+        android:id="@+id/tech_reminder_delete_id"/>
 
     <SeekBar
         android:id="@+id/seekBar_technical_notice_id"

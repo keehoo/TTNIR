@@ -88,18 +88,23 @@ public class SetNotificationActivity extends AppCompatActivity {
     }
 
 
-    private void scheduleNotification(String text, long milliseconds) {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+    private void scheduleNotification(String text, long milliseconds, int id) {
 
-        Intent broadcast = new Intent(BROADCAST_ACTION);
-        broadcast.putExtra(NotificationService.EXTRA_NOTIFICATION_TEXT, text);
-        Log.d("MainActivity", "Nowy intent o nazwie broadcast (INTENT(BROADCAST_ACTION) put Extra pod zmienna text= EXTRA_NOTIFICATION_TEXT");
-        PendingIntent alarmAction = PendingIntent.getBroadcast(this, 10, broadcast, PendingIntent.FLAG_UPDATE_CURRENT);
-        Log.d("MainActivity", " PendingIntent alarmAction z parametrami this, hashCode, broadcast i pendingIntent.FLAG_UPDATE_CURRENT");
-        pendingIntent = alarmAction; // to jest po to, zeby miec dostep do tego samego intentu zeby go anulowac (cancel)
-        alarmManager.set(AlarmManager.RTC_WAKEUP, milliseconds, alarmAction);  //dodawanie long = int najwyrazniej daje longa...
-        Log.d("MainActivity", "setAlarmManager z parametrami AlarmManager.RTC_WAKEUP, currentTime + sekundy ustawione wczesniej, alarmAction... alarmAction to jest pendingItentn powyzej");
-        Toast.makeText(SetNotificationActivity.this, "Alarm Ustawiony na " + milliseconds + " sekund", Toast.LENGTH_SHORT).show();
+        if (id==10 || id==20) {
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            Intent broadcast = new Intent(BROADCAST_ACTION);
+            broadcast.putExtra(NotificationService.EXTRA_NOTIFICATION_TEXT, text);
+            Log.d("MainActivity", "Nowy intent o nazwie broadcast (INTENT(BROADCAST_ACTION) put Extra pod zmienna text= EXTRA_NOTIFICATION_TEXT");
+            PendingIntent alarmAction = PendingIntent.getBroadcast(this, id, broadcast, PendingIntent.FLAG_UPDATE_CURRENT);
+            Log.d("MainActivity", " PendingIntent alarmAction z parametrami this, hashCode, broadcast i pendingIntent.FLAG_UPDATE_CURRENT");
+            pendingIntent = alarmAction; // to jest po to, zeby miec dostep do tego samego intentu zeby go anulowac (cancel)
+            alarmManager.set(AlarmManager.RTC_WAKEUP, milliseconds, alarmAction);  //dodawanie long = int najwyrazniej daje longa...
+            Log.d("MainActivity", "setAlarmManager z parametrami AlarmManager.RTC_WAKEUP, currentTime + sekundy ustawione wczesniej, alarmAction... alarmAction to jest pendingItentn powyzej");
+            Toast.makeText(SetNotificationActivity.this, "Alarm Ustawiony na " + milliseconds + " sekund", Toast.LENGTH_SHORT).show();
+        }
+    else
+            Log.d("scheduleNotification", "Bad id parameter for the schedule notification method, should be 10 for insurance or 20 for technical check");
     }
 
     @OnClick(R.id.clear_notification_id)
@@ -116,6 +121,32 @@ public class SetNotificationActivity extends AppCompatActivity {
             pendingIntent.cancel();
             Log.d("SetNotificationActivity", "       Disabling the alarm . . . . . DISABLED!  ");
             sharedPreferences.edit().putBoolean(MainActivity.INS_REMINDER_SET, false).apply();
+            //sharedPreferences.edit().putBoolean(MainActivity.TECH_REMINDER_SET, false).apply();
+
+            resetSwitches();
+
+        } else {
+            Log.d("Is Alarm Set?", "                 Alarm isn't set at this moment, no need to disable anything");
+            status.setText("Alarm is already disabled");
+            resetSwitches();
+        }
+
+    }
+
+    @OnClick(R.id.tech_reminder_delete_id)
+    protected void removeTechScheduledNotification() {
+        boolean alarmUp = (PendingIntent.getBroadcast(this, 20,
+                new Intent(BROADCAST_ACTION),
+                PendingIntent.FLAG_NO_CREATE) != null);
+        checkIfTheReminderIsSet();
+
+        if (alarmUp && pendingIntent != null) {
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+            Log.d("SetNotificationActivity", "       Disabling the alarm . . . . . DISABLED!  ");
+            sharedPreferences.edit().putBoolean(MainActivity.TECH_REMINDER_SET, false).apply();
 
             resetSwitches();
 
@@ -132,27 +163,22 @@ public class SetNotificationActivity extends AppCompatActivity {
 
         alarmDate = sharedPreferences.getLong(MainActivity.SHARED_DATE, -1);  // data podpisania umowy ubezpieczeniowej
         DateTime dt = new DateTime(alarmDate).plusMonths(okresUbezpieczenia);  //dt to data zakonczenia okresu ubezpieczenia
-        scheduleNotification("!!! ALARM !!!", dt.minusDays(wyprzedzenieAlarmu).getMillis());  // zalaczenie alarmu na date o wyprzedzenie alarmu krotsza niz koniec okresu ubezpieczenia...
-        status.setText("Alarm konca ubezpieczenia ustawiony na ... " + System.getProperty("line.separator") + dateText(dt.minusDays(wyprzedzenieAlarmu)));
-        alarmUstawiony.setText("Data podpisania umowy ubezpieczeniowej: .. " + System.getProperty("line.separator") + dateText(new DateTime(alarmDate)));
-        dataUbezpieczenia.setText("Alarm uruchomi sie " + wyprzedzenieAlarmu + " dni przed koncem okresu ubezpieczenia ");
+        scheduleNotification("!!! ALARM !!!", dt.minusDays(wyprzedzenieAlarmu).getMillis(), 10);  // zalaczenie alarmu na date o wyprzedzenie alarmu krotsza niz koniec okresu ubezpieczenia...
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(MainActivity.INS_REMINDER_SET, true).apply();
         resetSwitches();
 
-        Log.d("OnClickSetIns", "ustawione przypomnienie ?  "+ sharedPreferences.getBoolean(MainActivity.INS_REMINDER_SET, false));
+        Log.d("OnClickSetIns", "ustawione przypomnienie ?  " + sharedPreferences.getBoolean(MainActivity.INS_REMINDER_SET, false));
     }
 
     @OnClick(R.id.set_notification_technical)
     public void onClickTech() {
         alarmDate = sharedPreferences.getLong(MainActivity.SHARED_DATE_TECHNICAL, -1);
         DateTime dt = new DateTime(alarmDate).plusMonths(okresPrzegladu);
-        scheduleNotification("!!! ALARM !!!", dt.minusDays(wyprzedzenieAlarmu).getMillis());
+        scheduleNotification("!!! ALARM !!!", dt.minusDays(wyprzedzenieAlarmu).getMillis(), 20);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(MainActivity.TECH_REMINDER_SET, true).apply();
         resetSwitches();
-
-
     }
 
 
@@ -179,7 +205,7 @@ public class SetNotificationActivity extends AppCompatActivity {
             setInsReminderSet(true);
         else setInsReminderSet(false);
 
-        Log.d("CheckIfTheRemindersRUp", "Reminder is up?   "+ isInsReminderSet());
+        Log.d("CheckIfTheRemindersRUp", "Reminder is up?   " + isInsReminderSet());
 
         if (sharedPreferences.getBoolean(MainActivity.TECH_REMINDER_SET, false))
             setTechReminderSet(true);
@@ -197,6 +223,7 @@ public class SetNotificationActivity extends AppCompatActivity {
 
         switch_tech.setEnabled(true);
         switch_tech.setChecked(sharedPreferences.getBoolean(MainActivity.TECH_REMINDER_SET, false));
+        Log.d("ResetSwitches", "Technical switch, TECH REMINDER SET   "+ sharedPreferences.getBoolean(MainActivity.TECH_REMINDER_SET, false));
         switch_tech.setEnabled(false);
 
     }
