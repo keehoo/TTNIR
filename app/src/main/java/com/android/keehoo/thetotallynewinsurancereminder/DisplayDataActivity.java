@@ -70,10 +70,6 @@ public class DisplayDataActivity extends AppCompatActivity {
             setInsuranceDisplay(sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_INS, 12));
             insuranceCounterReStart();
 
-
-            /**
-             * TODO: add the proper amount of miliseconds to the count down....
-             */
         } else {
             Toast.makeText(DisplayDataActivity.this, "Nie ma ustawionej dlugosci ubezpieczenia!!!!", Toast.LENGTH_SHORT).show();
         }
@@ -259,7 +255,9 @@ public class DisplayDataActivity extends AppCompatActivity {
                     setTechnicaDisplay(okresPrzegladuTechWmiesiacach);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt(MainActivity.SHARED_DATE_DURATION_TECH, 12).apply();
-                    durationDisplay.setText("Obecny czas trawania przegladu " + sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_TECH, 12));
+                    durationDisplay.setText("Obecny czas trawania przegladu " +
+                            sharedPreferences.getInt(MainActivity.SHARED_DATE_DURATION_TECH, 12));
+                    technicalCounterReStart();
                 }
 
                 if (checkedId == R.id.six_months_id) {
@@ -280,7 +278,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setOkresUbezpieczeniaWmiesiacach(progress);
-                durationDisplay.setText("Ustaw czas trwania ubezpieczenia na : " + progress+" miesięcy");
+                durationDisplay.setText("Ustaw czas trwania ubezpieczenia na : " + progress + " miesięcy");
                 sharedPreferences.edit().putInt(MainActivity.SHARED_DATE_DURATION_INS, progress).apply();
             }
 
@@ -302,7 +300,7 @@ public class DisplayDataActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setOkresPrzegladuTechWmiesiacach(progress);
-                durationDisplay.setText("Okres ważności przeglądu technicznego : " + progress+" miesięcy");
+                durationDisplay.setText("Okres ważności przeglądu technicznego : " + progress + " miesięcy");
                 sharedPreferences.edit().putInt(MainActivity.SHARED_DATE_DURATION_TECH, progress).apply();
             }
 

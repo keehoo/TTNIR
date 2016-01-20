@@ -49,7 +49,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ustaw date, a następnie kliknij jeden z przycisków powyżej, aby ją zapisać"
+        android:text="Wybierz datę poniżej, następni wybierz czy jest to data rozpoczęcia ubezpieczenia, czy data wykonania przeglądu. Gdy skończysz, kliknij przycisk u dołu ekranu."
         android:id="@+id/tekst1"
         android:layout_below="@+id/linear_layout_id"
         android:textColor="@color/niebieski"
