@@ -59,7 +59,7 @@ public class SetNotificationActivity extends AppCompatActivity {
         JodaTimeAndroid.init(this);
         sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         initiate();
-        checkIfTheReminderIsSet();
+
 
         iloscDniDoKoncaUbezpieczenia = Integer.parseInt(getIntent().getExtras().getString(DisplayDataActivity.ILOSC_DNI, "nothing"));
         iloscDniDoKoncaPrzegladu = Integer.parseInt(getIntent().getExtras().getString(DisplayDataActivity.ILOSC_DNI_TECHNICAL, "nothing at all"));
@@ -83,14 +83,15 @@ public class SetNotificationActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
-
+        checkIfTheReminderIsSet();
+        resetSwitches();
 
     }
 
 
     private void scheduleNotification(String text, long milliseconds, int id) {
 
-        if (id==10 || id==20) {
+        if (id == 10 || id == 20) {
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
             Intent broadcast = new Intent(BROADCAST_ACTION);
@@ -102,58 +103,65 @@ public class SetNotificationActivity extends AppCompatActivity {
             alarmManager.set(AlarmManager.RTC_WAKEUP, milliseconds, alarmAction);  //dodawanie long = int najwyrazniej daje longa...
             Log.d("MainActivity", "setAlarmManager z parametrami AlarmManager.RTC_WAKEUP, currentTime + sekundy ustawione wczesniej, alarmAction... alarmAction to jest pendingItentn powyzej");
             Toast.makeText(SetNotificationActivity.this, "Alarm Ustawiony na " + milliseconds + " sekund", Toast.LENGTH_SHORT).show();
-        }
-    else
+        } else
             Log.d("scheduleNotification", "Bad id parameter for the schedule notification method, should be 10 for insurance or 20 for technical check");
     }
 
     @OnClick(R.id.clear_notification_id)
     protected void removeScheduledNotification() {
+        Intent broadcast = new Intent(BROADCAST_ACTION);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 10, broadcast, PendingIntent.FLAG_CANCEL_CURRENT);
         boolean alarmUp = (PendingIntent.getBroadcast(this, 10,
                 new Intent(BROADCAST_ACTION),
                 PendingIntent.FLAG_NO_CREATE) != null);
-        checkIfTheReminderIsSet();
 
-        if (alarmUp && pendingIntent != null) {
+
+        if (alarmUp == true) {
 
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
             Log.d("SetNotificationActivity", "       Disabling the alarm . . . . . DISABLED!  ");
             sharedPreferences.edit().putBoolean(MainActivity.INS_REMINDER_SET, false).apply();
             //sharedPreferences.edit().putBoolean(MainActivity.TECH_REMINDER_SET, false).apply();
-
+            setInsReminderSet(false);
             resetSwitches();
 
         } else {
             Log.d("Is Alarm Set?", "                 Alarm isn't set at this moment, no need to disable anything");
             status.setText("Alarm is already disabled");
             resetSwitches();
+            setInsReminderSet(false);
         }
 
     }
 
     @OnClick(R.id.tech_reminder_delete_id)
     protected void removeTechScheduledNotification() {
+
+        Intent broadcast = new Intent(BROADCAST_ACTION);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 20, broadcast, PendingIntent.FLAG_CANCEL_CURRENT);
         boolean alarmUp = (PendingIntent.getBroadcast(this, 20,
                 new Intent(BROADCAST_ACTION),
                 PendingIntent.FLAG_NO_CREATE) != null);
         checkIfTheReminderIsSet();
 
-        if (alarmUp && pendingIntent != null) {
 
+        if (alarmUp) {
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
             Log.d("SetNotificationActivity", "       Disabling the alarm . . . . . DISABLED!  ");
             sharedPreferences.edit().putBoolean(MainActivity.TECH_REMINDER_SET, false).apply();
-
             resetSwitches();
+            setTechReminderSet(false);
 
         } else {
             Log.d("Is Alarm Set?", "                 Alarm isn't set at this moment, no need to disable anything");
             status.setText("Alarm is already disabled");
             resetSwitches();
+            setTechReminderSet(false);
         }
 
     }
@@ -223,7 +231,7 @@ public class SetNotificationActivity extends AppCompatActivity {
 
         switch_tech.setEnabled(true);
         switch_tech.setChecked(sharedPreferences.getBoolean(MainActivity.TECH_REMINDER_SET, false));
-        Log.d("ResetSwitches", "Technical switch, TECH REMINDER SET   "+ sharedPreferences.getBoolean(MainActivity.TECH_REMINDER_SET, false));
+        Log.d("ResetSwitches", "Technical switch, TECH REMINDER SET   " + sharedPreferences.getBoolean(MainActivity.TECH_REMINDER_SET, false));
         switch_tech.setEnabled(false);
 
     }

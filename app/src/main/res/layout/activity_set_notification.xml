@@ -1,52 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-
-    <TextView
+    <TableLayout
+        android:id="@+id/table_1_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:text="Przypomnienie o ubezpieczeniu samochodu.. "
-        android:textStyle="bold"/>
-    <Button
-        android:id="@+id/set_notification_id"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/insurance_title_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Przypomnienie o ubezpieczeniu samochodu.. "
+                android:textStyle="bold" />
+
+            <Switch
+                android:id="@+id/switch_insurance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/insurance_title_id"
+
+                android:layout_weight="1"
+                android:shadowColor="@color/bialy" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/technical_title_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/insurance_title_id"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="Przypomnienie o przegladzie samochodu.. "
+                android:textStyle="bold" />
+
+
+            <Switch
+                android:id="@+id/switch_technical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switch_insurance"
+
+
+                android:layout_toRightOf="@+id/technical_title_id" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/insurance_buttons_linear_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ustaw alarm" />
+        android:layout_below="@+id/table_1_id">
 
-    <Button
-        android:id="@+id/clear_notification_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Usun alarm" />
-
-
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Switch"
-        android:id="@+id/switch_insurance"
-        android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/set_notification_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ustaw alarm" />
 
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Switch"
-        android:id="@+id/switch_technical"
-        android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/clear_notification_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Usun alarm" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/status_id"
@@ -57,7 +97,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/data_ubezpieczenia_id"
@@ -67,7 +107,8 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"/>
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/alarm_ustawiony_id"
@@ -77,32 +118,53 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"/>
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:visibility="gone" />
 
     <SeekBar
         android:id="@+id/seekBar_insurance_notice_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/insurance_buttons_linear_id"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:max="365"
+        android:textAlignment="center"/>
 
-        android:max="365" />
-
-    <Button
-        android:id="@+id/set_notification_technical"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ustaw przypomnienie o przeglądzie technicznym" />
+        android:layout_below="@+id/seekBar_insurance_notice_id"
+        android:orientation="horizontal"
+        android:id="@+id/linear_technical_buttons_id">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Usuń przypomnienie o przeglądzie technicznym"
-        android:id="@+id/tech_reminder_delete_id"/>
+        <Button
+            android:id="@+id/set_notification_technical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ustaw przypomnienie o przeglądzie technicznym" />
+
+        <Button
+            android:id="@+id/tech_reminder_delete_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Usuń przypomnienie o przeglądzie technicznym" />
+
+    </LinearLayout>
 
     <SeekBar
         android:id="@+id/seekBar_technical_notice_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:max="365" />
-</LinearLayout>
+        android:layout_below="@id/linear_technical_buttons_id"
+        android:max="365"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        />
+</RelativeLayout>
