@@ -100,6 +100,36 @@ public class MainActivity extends AppCompatActivity {
 
         techButton = (Button) findViewById(R.id.set_technical_date_id);
 
+        if (sharedPreferences.contains(SHARED_DATE) && sharedPreferences.contains(SHARED_DATE_TECHNICAL)) {
+            //Data juz ustawiona i zapisana w sharedPrefs. Otwieramy nowe okno z wywietlaczem
+            Log.d("MainActivity - OnCreate", "    Shared prefs contain both - insurance date and technical check date");
+            Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
+            startActivity(intent);
+            finish();
+
+
+            //else {Log.d("main", "choose dates");
+            if (sharedPreferences.contains(SHARED_DATE_TECHNICAL)) {
+                Log.d("MainActivity - OnCreate", "    Shared prefs contain technical check date only");
+                insButton.setEnabled(true);
+
+            } else {
+                techButton.setEnabled(true);
+
+            }
+
+
+            if (sharedPreferences.contains(SHARED_DATE)) {
+                Log.d("MainActivity - OnCreate", "    Shared prefs contain insurance date only ");
+                techButton.setEnabled(true);
+            } else {
+                Log.d("SharedPreferences", "      Shared Preferences does not contain SHARED_DAT tag");
+                insButton.setEnabled(true);
+
+            }
+        }else {Log.d("Main Act", "choose dates");
+        }
+
 
         if (getIntent().getExtras() != null) {
 
@@ -113,32 +143,15 @@ public class MainActivity extends AppCompatActivity {
             }
             if (getIntent().getExtras().getBoolean(TECHNICAL_BUTTON_ENABLED)) {
                 techButton.setEnabled(true);
-               // ustwionaDataWMilisekundach = sharedPreferences.getLong(SHARED_DATE, 0L);
-            } else {techButton.setEnabled(false);
+                // ustwionaDataWMilisekundach = sharedPreferences.getLong(SHARED_DATE, 0L);
+            } else {
+                techButton.setEnabled(false);
                 ustwionaDataWMilisekundach = sharedPreferences.getLong(SHARED_DATE, 0L);
 
             }
         }
 
 
-        if (sharedPreferences.contains(SHARED_DATE) && sharedPreferences.contains(SHARED_DATE_TECHNICAL)) {
-            //Data juz ustawiona i zapisana w sharedPrefs. Otwieramy nowe okno z wywietlaczem
-            Log.d("MainActivity - OnCreate", "    Shared prefs contain both - insurance date and technical check date");
-            Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        if (sharedPreferences.contains(SHARED_DATE_TECHNICAL)) {
-            Log.d("MainActivity - OnCreate", "    Shared prefs contain technical check date only");
-            insButton.setEnabled(true);
-
-        }
-        if (sharedPreferences.contains(SHARED_DATE)) {
-            Log.d("MainActivity - OnCreate", "    Shared prefs contain insurance date only ");
-            techButton.setEnabled(true);
-        } else {
-            Log.d("SharedPreferences", "      Shared Preferences does not contain SHARED_DAT tag");
-        }
     }
 
 
