@@ -1,4 +1,4 @@
-package com.android.keehoo.thetotallynewinsurancereminder;
+package com.multivonex.keehoo.thetotallynewinsurancereminder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.keehoo.thetotallynewinsurancereminder.R;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 

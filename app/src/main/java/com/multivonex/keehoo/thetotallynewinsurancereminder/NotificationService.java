@@ -1,4 +1,4 @@
-package com.android.keehoo.thetotallynewinsurancereminder;
+package com.multivonex.keehoo.thetotallynewinsurancereminder;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.Context;
 import android.support.v7.app.NotificationCompat;
+
+import com.android.keehoo.thetotallynewinsurancereminder.R;
 
 import java.util.UUID;
 

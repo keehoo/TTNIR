@@ -1,4 +1,4 @@
-package com.android.keehoo.thetotallynewinsurancereminder;
+package com.multivonex.keehoo.thetotallynewinsurancereminder;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -13,6 +13,9 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.keehoo.thetotallynewinsurancereminder.BuildConfig;
+import com.android.keehoo.thetotallynewinsurancereminder.R;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 

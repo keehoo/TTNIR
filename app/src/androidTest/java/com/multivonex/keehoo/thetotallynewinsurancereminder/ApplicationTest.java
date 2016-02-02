@@ -1,4 +1,4 @@
-package com.android.keehoo.thetotallynewinsurancereminder;
+package com.multivonex.keehoo.thetotallynewinsurancereminder;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package com.android.keehoo.thetotallynewinsurancereminder;
+package com.multivonex.keehoo.thetotallynewinsurancereminder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.android.keehoo.thetotallynewinsurancereminder.R;
 
 import org.joda.time.DateTime;
 
