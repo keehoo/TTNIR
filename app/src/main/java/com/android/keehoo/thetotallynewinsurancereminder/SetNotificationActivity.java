@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -171,7 +172,7 @@ public class SetNotificationActivity extends AppCompatActivity {
 
         alarmDate = sharedPreferences.getLong(MainActivity.SHARED_DATE, -1);  // data podpisania umowy ubezpieczeniowej
         DateTime dt = new DateTime(alarmDate).plusMonths(okresUbezpieczenia);  //dt to data zakonczenia okresu ubezpieczenia
-        scheduleNotification("!!! ALARM !!!", dt.minusDays(wyprzedzenieAlarmu).getMillis(), 10);  // zalaczenie alarmu na date o wyprzedzenie alarmu krotsza niz koniec okresu ubezpieczenia...
+        scheduleNotification("Zbliża się koniec obowiązywania ubezpieczenia Twojego somochodzi, zadzwoń do MultiVonex 792 805 295", dt.minusDays(wyprzedzenieAlarmu).getMillis(), 10);  // zalaczenie alarmu na date o wyprzedzenie alarmu krotsza niz koniec okresu ubezpieczenia...
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(MainActivity.INS_REMINDER_SET, true).apply();
         resetSwitches();
@@ -183,7 +184,7 @@ public class SetNotificationActivity extends AppCompatActivity {
     public void onClickTech() {
         alarmDate = sharedPreferences.getLong(MainActivity.SHARED_DATE_TECHNICAL, -1);
         DateTime dt = new DateTime(alarmDate).plusMonths(okresPrzegladu);
-        scheduleNotification("!!! ALARM !!!", dt.minusDays(wyprzedzenieAlarmu).getMillis(), 20);
+        scheduleNotification("Zbliża się koniec okresu przeglądu technicznego, zadzwoń do MultiVonex 792 805 295", dt.minusDays(wyprzedzenieAlarmu).getMillis(), 20);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(MainActivity.TECH_REMINDER_SET, true).apply();
         resetSwitches();
@@ -268,17 +269,17 @@ public class SetNotificationActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setWyprzedzenieAlarmu(progress);
-                status.setText("Alarm zadzwoni " + wyprzedzenieAlarmu + " dni przed koncem ubezpieczenia");
+                noticePeriodDisplay.setText("Wyprzedzenie alarmu " + wyprzedzenieAlarmu + " dni przed koncem ubezpieczenia");
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                noticePeriodDisplay.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                noticePeriodDisplay.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -287,16 +288,18 @@ public class SetNotificationActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setWyprzedzenieAlarmuTech(progress);
-                status.setText("wyprzedzenie alarmu " + wyprzedzenieAlarmuTech);
+                noticePeriodDisplay.setText("wyprzedzenie alarmu " + wyprzedzenieAlarmuTech+" dni przed końcem obowiązywania okresu przeglądu technicznego");
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                noticePeriodDisplay.setVisibility(View.VISIBLE);
 
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                noticePeriodDisplay.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -312,5 +315,8 @@ public class SetNotificationActivity extends AppCompatActivity {
 
     @Bind(R.id.data_ubezpieczenia_id)
     protected TextView dataUbezpieczenia;
+
+    @Bind(R.id.notice_period_display_id)
+    protected TextView noticePeriodDisplay;
 
 }

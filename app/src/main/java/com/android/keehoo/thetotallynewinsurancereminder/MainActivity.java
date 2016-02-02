@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button insButton;  // default - visible only in package
     Button techButton;  //default accessor - visible only in package - I hope :)
-    Button okButton; // button that saves the dates in the shared prefs
+    //Button onOkClick; // button that saves the dates in the shared prefs
 
 
     @Bind(R.id.obecna_data_ubezpieczenia)
@@ -52,16 +52,9 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.ok_button_id)
     public void onOkClick() {
 
-        if (ustawionaDataTechWMilisekundach == 0 || ustawionaDataTechWMilisekundach == 0) {
-            Toast.makeText(MainActivity.this, "Nie wybrano jednej z dat", Toast.LENGTH_SHORT).show();
-
-        } else {
-            saveInSharedPreferences(SHARED_DATE, ustwionaDataWMilisekundach);
-            saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustawionaDataTechWMilisekundach);
-            Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.set_insurance_date_id)
@@ -74,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
          * komentuje to, bo data powinna sie zapisywac w shared prefs w momencie klikniecia buttona ok!
          */
         obecnaDataUbezpieczenia.setText("Obecna data ubezpieczenia " + dateText(new DateTime(ustwionaDataWMilisekundach)));
+        saveInSharedPreferences(SHARED_DATE, ustwionaDataWMilisekundach);
 
     }
 
@@ -84,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "Data przegladu ustawiona na " + ustawionaDataTechWMilisekundach);
         //saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustwionaDataWMilisekundach);
         obecnaDataTechnical.setText("Obecna data przegladu " + dateText(new DateTime(ustawionaDataTechWMilisekundach)));
+        saveInSharedPreferences(SHARED_DATE_TECHNICAL, ustawionaDataTechWMilisekundach);
 
 
     }
@@ -100,7 +95,27 @@ public class MainActivity extends AppCompatActivity {
 
         techButton = (Button) findViewById(R.id.set_technical_date_id);
 
-        if (sharedPreferences.contains(SHARED_DATE) && sharedPreferences.contains(SHARED_DATE_TECHNICAL)) {
+
+        if (sharedPreferences.contains(MainActivity.SHARED_DATE) && sharedPreferences.contains(MainActivity.SHARED_DATE_TECHNICAL)) {
+
+            Log.d("MainActivity", " sprawdzanie czy shared date ma wpisy odnosnie SHARED_DATE oraz SHARED_DATE_TECHNICAL -    WPISY SĄ");
+            Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+
+            if (sharedPreferences.contains(MainActivity.SHARED_DATE)) {
+                insButton.setEnabled(false);
+            } else {
+                insButton.setEnabled(true);
+            }
+            if (sharedPreferences.contains(MainActivity.SHARED_DATE_TECHNICAL)) {
+                techButton.setEnabled(false);
+            } else {
+                techButton.setEnabled(true);
+            }
+
+        /*if (sharedPreferences.contains(SHARED_DATE) && sharedPreferences.contains(SHARED_DATE_TECHNICAL)) {
             //Data juz ustawiona i zapisana w sharedPrefs. Otwieramy nowe okno z wywietlaczem
             Log.d("MainActivity - OnCreate", "    Shared prefs contain both - insurance date and technical check date");
             Intent intent = new Intent(MainActivity.this, DisplayDataActivity.class);
@@ -128,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }else {Log.d("Main Act", "choose dates");
-        }
+        }*/
 
 
-        if (getIntent().getExtras() != null) {
+       /* if (getIntent().getExtras() != null) {
 
             if (getIntent().getExtras().getBoolean(INSURANCE_BUTTON_ENABLED)) {
                 insButton.setEnabled(true);
@@ -149,9 +164,10 @@ public class MainActivity extends AppCompatActivity {
                 ustwionaDataWMilisekundach = sharedPreferences.getLong(SHARED_DATE, 0L);
 
             }
+        }*/
+
+
         }
-
-
     }
 
 

@@ -71,7 +71,10 @@ public class DisplayDataActivity extends AppCompatActivity {
             insuranceCounterReStart();
 
         } else {
-            Toast.makeText(DisplayDataActivity.this, "Nie ma ustawionej dlugosci ubezpieczenia!!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DisplayDataActivity.this, "Długość ubezpieczenia automatycznie ustawiona na 12 miesięcy, możesz to zmienić w ustawieniach"
+                    , Toast.LENGTH_LONG).show();
+            setInsuranceDisplay(12);
+            insuranceCounterReStart();
         }
 
         if (sharedPreferences.contains(MainActivity.SHARED_DATE_DURATION_TECH)) {
@@ -79,7 +82,10 @@ public class DisplayDataActivity extends AppCompatActivity {
             technicalCounterReStart();
 
         } else {
-            Toast.makeText(DisplayDataActivity.this, "Nie ma podanej daty zakonczenia trwania przegladu technicznego", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DisplayDataActivity.this, "Długość obowiązywania ważnego przeglądu technicznego automatycznie ustawiona na 12 miesięcy, możesz to zmienić w ustawieniach"
+                    , Toast.LENGTH_LONG).show();
+            setTechnicaDisplay(12);
+            technicalCounterReStart();
         }
     }
 
