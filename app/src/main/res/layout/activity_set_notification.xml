@@ -16,16 +16,20 @@
         android:layout_height="wrap_content"
         android:stretchColumns="1">
 
-        <TableRow>
+        <TableRow
+            >
 
             <TextView
                 android:id="@+id/insurance_title_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                android:layout_span="1"
+                android:layout_weight="6"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_vertical_margin"
                 android:text="Przypomnienie o ubezpieczeniu samochodu.. "
                 android:textStyle="bold" />
 
@@ -33,35 +37,58 @@
                 android:id="@+id/switch_insurance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/insurance_title_id"
-
+                android:layout_span="1"
                 android:layout_weight="1"
-                android:shadowColor="@color/bialy" />
+                android:gravity="right"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:shadowColor="@color/bialy"
+                android:theme="@style/Theme.AppCompat.Light" />
 
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            >
 
             <TextView
                 android:id="@+id/technical_title_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/insurance_title_id"
+                android:layout_weight="6"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_vertical_margin"
                 android:text="Przypomnienie o przegladzie samochodu.. "
-                android:textStyle="bold" />
+
+                android:textStyle="bold"
+                android:layout_span="1"/>
+
+            <!--<TextView
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:layout_span="1"
+                />-->
 
 
             <Switch
                 android:id="@+id/switch_technical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/switch_insurance"
-
-
-                android:layout_toRightOf="@+id/technical_title_id" />
+                android:layout_span="1"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:shadowColor="@color/bialy"
+                android:theme="@style/Theme.AppCompat.Light" />
         </TableRow>
     </TableLayout>
 
@@ -126,19 +153,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/insurance_buttons_linear_id"
+        android:max="150"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:max="150"
-        android:textAlignment="center"/>
+        android:textAlignment="center" />
 
     <LinearLayout
+        android:id="@+id/linear_technical_buttons_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/seekBar_insurance_notice_id"
-        android:orientation="horizontal"
-        android:id="@+id/linear_technical_buttons_id">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/set_notification_technical"
@@ -165,16 +192,16 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        />
+        android:paddingTop="@dimen/activity_vertical_margin" />
+
     <TextView
+        android:id="@+id/notice_period_display_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:hint="diplay"
         android:layout_centerHorizontal="true"
+        android:hint="diplay"
         android:textSize="25sp"
-        android:id="@+id/notice_period_display_id"
         android:visibility="invisible"
 
 
