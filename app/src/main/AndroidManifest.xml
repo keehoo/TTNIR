@@ -15,7 +15,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name="com.multivonex.keehoo.thetotallynewinsurancereminder.DisplayDataActivity" />
 
@@ -29,7 +28,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.multivonex.keehoo.thetotallynewinsurancereminder.SetNotificationActivity"></activity>
+        <activity android:name="com.multivonex.keehoo.thetotallynewinsurancereminder.SetNotificationActivity" />
+        <activity android:name="com.multivonex.keehoo.thetotallynewinsurancereminder.ListOfCarsActivity"></activity>
     </application>
 
 </manifest>

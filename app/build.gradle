@@ -8,8 +8,8 @@ android {
         applicationId "com.multivonex.keehoo.thetotallynewinsurancereminder"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
     }
     buildTypes {
         release {
@@ -30,7 +30,6 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.github.iwgang:countdownview:1.2'
-
-
+    compile 'com.android.support:recyclerview-v7:23.3.0'
 }
 
