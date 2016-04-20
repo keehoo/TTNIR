@@ -27,7 +27,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); // podłączenie naszego layoutinflatera do serwisu systemowego
     }
 
-    public void setOnItemClickListener(OnItemClickListener onClickListener) {
+    public void setClickListener(OnItemClickListener onClickListener) {
         this.onClickListener = onClickListener;
 
 

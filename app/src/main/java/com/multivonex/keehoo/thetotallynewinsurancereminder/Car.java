@@ -1,8 +1,5 @@
 package com.multivonex.keehoo.thetotallynewinsurancereminder;
 
-/**
- * Created by keehoo on 19.04.2016.
- */
 public class Car {
 
     public String numer_Rejestracyjny;
@@ -42,11 +39,21 @@ public class Car {
         this.markaSamochodu = markaSamochodu;
     }
 
-    public Car(String numer_Rejestracyjny, long data_Ubezpieczenia, long dataPrzegladuTechnicznego, String markaSamochodu) {
+    public Car(String markaSamochodu, String numer_Rejestracyjny, long data_Ubezpieczenia, long dataPrzegladuTechnicznego) {
         this.numer_Rejestracyjny = numer_Rejestracyjny;
         this.data_Ubezpieczenia = data_Ubezpieczenia;
         this.dataPrzegladuTechnicznego = dataPrzegladuTechnicznego;
         this.markaSamochodu = markaSamochodu;
     }
+
+    public Car(String markaSamochodu, long data_Ubezpieczenia, long dataPrzegladuTechnicznego) {
+        this.markaSamochodu = markaSamochodu;
+        this.data_Ubezpieczenia = data_Ubezpieczenia;
+        this.dataPrzegladuTechnicznego = dataPrzegladuTechnicznego;
+    }
+
+
+
+
 }
 
